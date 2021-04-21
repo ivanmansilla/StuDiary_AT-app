@@ -123,9 +123,9 @@ public class LoginFragment extends Fragment {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Fragment fragment;
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                Intent intent = new Intent(getActivity().getApplication(), com.example.studiary_at.ui.login.ForgotPasswordFragment.class);
-                startActivity(intent);
+                fragmentTransaction.replace(R.id.fragment_container, mFeedFragment);
 
             }
         });
