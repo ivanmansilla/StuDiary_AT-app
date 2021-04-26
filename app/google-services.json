@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "905867231104",
+    "project_id": "studiary-at",
+    "storage_bucket": "studiary-at.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905867231104:android:7eae0c06857f13e1f6cb65",
+        "android_client_info": {
+          "package_name": "com.example.studiary_at"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905867231104-8r40u8nk8lrkqv2u5cml3ur649cb0471.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvF8jMgi720bXDkjzw9WbpfMCnnZFfwhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905867231104-8r40u8nk8lrkqv2u5cml3ur649cb0471.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
