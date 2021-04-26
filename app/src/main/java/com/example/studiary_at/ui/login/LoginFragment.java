@@ -43,11 +43,11 @@ public class LoginFragment extends Fragment {
         public void enviar(String envia);
     }
 
-    @Override
+    /*@Override
     public void onAttach(@NonNull Context context) {
         comunicador = (Comunicador) context;
         super.onAttach(context);
-    }
+    }*/
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState, LayoutInflater inflater, ViewGroup container) {
         super.onViewCreated(view, savedInstanceState);
