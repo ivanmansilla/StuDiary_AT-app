@@ -1,5 +1,7 @@
 package com.example.studiary_at;
 
+import android.os.Bundle;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -8,24 +10,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.studiary_at.ui.login.ForgotPasswordFragment;
 import com.example.studiary_at.ui.login.LoginFragment;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginFragment.Comunicador{
     private FrameLayout fragmentContainer;
     private EditText editText;
     private Button button;
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main) ;
+        setContentView(R.layout.fragment_login) ;
 
         fragmentContainer= (FrameLayout) findViewById(R.id.fragment_container_view_tag);
-        editText = (EditText) findViewById(R.id.)
+        button = (Button) findViewById(R.id.button_forgotPassw_log2);
     }
-    public void openFragment(String text){
-        LoginFragment fragment = LoginFragment.newInstance(text);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction= fragmentManager.beginTransaction();
-        transaction.addToBackStack(null);
-        transaction.add(R.id.fragment_container_view_tag,fragment,"Blank Fragment");
+
+    @Override
+    public void enviar(String envia) {
+        ForgotPasswordFragment recibe = (ForgotPasswordFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_password);
+        if(recibe != null){
+            recibe.recibirTexto(envia);
     }
+}
 }

@@ -1,5 +1,6 @@
 package com.example.studiary_at.ui.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -33,11 +34,22 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View v = inflater.inflate(R.layout.fragment_login, container, false);
+        return v;
+    }
+    Comunicador comunicador;
+
+    public interface Comunicador{
+        public void enviar(String envia);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onAttach(@NonNull Context context) {
+        comunicador = (Comunicador) context;
+        super.onAttach(context);
+    }
+
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState, LayoutInflater inflater, ViewGroup container) {
         super.onViewCreated(view, savedInstanceState);
         loginViewModel = new ViewModelProvider(this, new com.example.studiary_at.ui.login.LoginViewModelFactory())
                 .get(com.example.studiary_at.ui.login.LoginViewModel.class);
@@ -123,9 +135,7 @@ public class LoginFragment extends Fragment {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment;
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                fragmentTransaction.replace(R.id.fragment_container, mFeedFragment);
+                comunicador.enviar(usernameEditText.getText().toString());
 
             }
         });
