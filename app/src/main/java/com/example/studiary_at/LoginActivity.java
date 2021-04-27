@@ -56,15 +56,12 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Co
     }
 
     @Override
-
     public void onClick(View view) {
         String email = input_email.getText().toString();
         String password = input_password.getText().toString();
         System.out.println(email);
         System.out.println(password);
         LoginViewModel.login(email,password);
-
-
     }
 
     @Override
@@ -76,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Co
             reload();
         }
     }
+
     //Mètode per a registrar un nou usuari
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
