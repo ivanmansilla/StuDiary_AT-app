@@ -15,6 +15,6 @@ public class FireBaseAdapter {
             .setDatabaseUrl("https://studiaryat-default-rtdb.europe-west1.firebasedatabase.app")
             .build();
 
-    FirebaseApp.initializeApp(options);
-*/
+    FirebaseApp.initializeApp(options);*/
+
 }
