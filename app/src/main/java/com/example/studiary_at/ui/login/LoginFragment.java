@@ -41,6 +41,8 @@ public class LoginFragment extends Fragment {
 
     public interface Comunicador{
         public void enviar(String envia);
+
+        void onClick(View view);
     }
 
     /*@Override
