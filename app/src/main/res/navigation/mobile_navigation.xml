@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_login" />
 
     <fragment
-        android:id="@+id/navigation_notes"
-        android:name="com.example.studiary_at.ui.notes.NotesFragment"
+        android:id="@+id/navigation_calendar"
+        android:name="com.example.studiary_at.ui.calendar.CalendarFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_notes" />
+        tools:layout="@layout/fragment_calendar" />
 
     <fragment
         android:id="@+id/navigation_settings"
