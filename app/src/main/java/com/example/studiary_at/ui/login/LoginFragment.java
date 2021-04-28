@@ -35,21 +35,9 @@ public class LoginFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
+
         return v;
     }
-    Comunicador comunicador;
-
-    public interface Comunicador{
-        public void enviar(String envia);
-
-        void onClick(View view);
-    }
-
-    /*@Override
-    public void onAttach(@NonNull Context context) {
-        comunicador = (Comunicador) context;
-        super.onAttach(context);
-    }*/
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState, LayoutInflater inflater, ViewGroup container) {
         super.onViewCreated(view, savedInstanceState);
@@ -125,22 +113,22 @@ public class LoginFragment extends Fragment {
                 return false;
             }
         });
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+            public void onClick(View view) {
+                if(mListener != null){
+                    mListener.onFragmentClick(view);
+                }
             }
         });
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                comunicador.enviar(usernameEditText.getText().toString());
+    }
+    private FragmentClickListener mListener;
 
-            }
-        });
+    public interface FragmentClickListener{
+        void onFragmentClick(View v);
+    }
+    public void registerListener(FragmentClickListener mListener){
+        this.mListener = mListener;
     }
 
     private void updateUiWithUser(com.example.studiary_at.ui.login.LoggedInUserView model) {

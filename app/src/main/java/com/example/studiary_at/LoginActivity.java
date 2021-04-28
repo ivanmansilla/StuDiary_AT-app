@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.example.studiary_at.ui.login.LoginViewModel;
 
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity implements LoginFragment.FragmentClickListener{
     private FrameLayout fragmentContainer;
     private EditText input_email;
     private EditText input_password;
@@ -36,29 +36,15 @@ public class LoginActivity extends AppCompatActivity{
         setContentView(R.layout.fragment_login);
 
         fragmentContainer= (FrameLayout) findViewById(R.id.fragment_container_view_tag);
-        login_button = (Button) findViewById(R.id.button_login_log2);
+        final Button login_button= findViewById(R.id.button_login_log2);
         input_email =(EditText) findViewById(R.id.textin_username_log2);
         input_password=(EditText) findViewById(R.id.textin_password_log2);
 
+
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        login_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                String email = input_email.getText().toString();
-                String password = input_password.getText().toString();
-                System.out.println(email + " oo " + password);
-                LoginViewModel.login(email,password);
 
-            }
-        });
-    }
-
-    //@Override
-    public void enviar(String envia) {
-        ForgotPasswordFragment recibe = (ForgotPasswordFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_password);
-        if(recibe != null){
-            recibe.recibirTexto(envia);
-        }
     }
 
    /* @Override
@@ -132,5 +118,13 @@ public class LoginActivity extends AppCompatActivity{
 
     private void updateUI(FirebaseUser currentUser) {
         //TODO
+    }
+
+    @Override
+    public void onFragmentClick(View v) {
+        String email = input_email.getText().toString();
+        String password = input_password.getText().toString();
+        Toast.makeText(LoginActivity.this, "Succeed",
+                Toast.LENGTH_SHORT).show();
     }
 }
