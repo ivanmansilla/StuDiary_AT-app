@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.example.studiary_at.ui.login.LoginViewModel;
 
-public class LoginActivity extends AppCompatActivity implements LoginFragment.Comunicador{
+public class LoginActivity extends AppCompatActivity{
     private FrameLayout fragmentContainer;
     private EditText input_email;
     private EditText input_password;
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Co
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_login) ;
+        setContentView(R.layout.fragment_login);
 
         fragmentContainer= (FrameLayout) findViewById(R.id.fragment_container_view_tag);
         login_button = (Button) findViewById(R.id.button_login_log2);
@@ -42,12 +42,18 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Co
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        login_button.setOnClickListener((View.OnClickListener) this);
-        onStart();
-        }
+        login_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String email = input_email.getText().toString();
+                String password = input_password.getText().toString();
+                System.out.println(email + " oo " + password);
+                LoginViewModel.login(email,password);
 
+            }
+        });
+    }
 
-    @Override
+    //@Override
     public void enviar(String envia) {
         ForgotPasswordFragment recibe = (ForgotPasswordFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_password);
         if(recibe != null){
@@ -55,14 +61,14 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Co
         }
     }
 
-    @Override
+   /* @Override
     public void onClick(View view) {
         String email = input_email.getText().toString();
         String password = input_password.getText().toString();
         System.out.println(email);
         System.out.println(password);
         LoginViewModel.login(email,password);
-    }
+    }*/
 
     @Override
     public void onStart() {

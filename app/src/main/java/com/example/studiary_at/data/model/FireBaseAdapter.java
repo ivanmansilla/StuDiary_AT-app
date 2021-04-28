@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 
 public class FireBaseAdapter {
 
-    FileInputStream serviceAccount =
+    /*FileInputStream serviceAccount =
             new FileInputStream("C:\Program Files\Android\studiary-at-firebase-adminsdk-ek8dp-d947414867.json");
 
     FirebaseOptions options = new FirebaseOptions.Builder()
@@ -15,6 +15,6 @@ public class FireBaseAdapter {
             .setDatabaseUrl("https://studiaryat-default-rtdb.europe-west1.firebasedatabase.app")
             .build();
 
-    FirebaseApp.initializeApp(options);
+    FirebaseApp.initializeApp(options);*/
 
 }
