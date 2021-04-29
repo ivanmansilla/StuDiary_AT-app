@@ -13,7 +13,7 @@ public class FireBaseAdapter {
 
     public FireBaseAdapter() throws IOException {
         FileInputStream serviceAccount =
-                new FileInputStream("C:\Program Files\Android\studiary-at-firebase-adminsdk-ek8dp-d947414867.json");
+                new FileInputStream("C:\\Program Files\\Android\\studiary-at-firebase-adminsdk-ek8dp-d947414867.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
