@@ -8,13 +8,13 @@
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.example.studiary_at.ui.login.LoginFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_login" />
+        android:label="@string/login"
+        tools:layout="@layout/fragment_perfil" />
 
     <fragment
         android:id="@+id/navigation_calendar"
         android:name="com.example.studiary_at.ui.calendar.CalendarFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/calendar"
         tools:layout="@layout/fragment_calendar" />
 
     <fragment

@@ -28,14 +28,14 @@ public class LoginFragment extends Fragment {
     private com.example.studiary_at.ui.login.LoginViewModel loginViewModel;
 
     @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
+//    @Override
+    /*public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_login, container, false);
+        //View v = inflater.inflate(R.layout.fragment_login, container, false);
 
         return v;
-    }
+    }*/
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState, LayoutInflater inflater, ViewGroup container) {
         super.onViewCreated(view, savedInstanceState);

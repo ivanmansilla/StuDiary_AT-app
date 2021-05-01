@@ -1,5 +1,6 @@
 package com.example.studiary_at;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.studiary_at.ui.login.LoginFragment;
@@ -20,24 +22,26 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity implements LoginFragment.FragmentClickListener{
-    private FrameLayout fragmentContainer;
     private EditText input_email;
     private EditText input_password;
     private LoginFragment loginF;
     private Button login_button;
     private FirebaseAuth mAuth;
+    private Button register_button;
     private static final String TAG = "Login";
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_login);
-        fragmentContainer= (FrameLayout) findViewById(R.id.fragment_container_view_tag);
+        setContentView(R.layout.activity_login);
         final Button login_button= findViewById(R.id.button_login_log2);
+        register_button = findViewById(R.id.button_register_log2);
         input_email =(EditText) findViewById(R.id.textin_username_log2);
         input_password=(EditText) findViewById(R.id.textin_password_log2);
-        login_button.setOnClickListener((v) -> {
-            onFragmentClick((View.OnClickListener) this);
-        });
+
+
+
+
 
 
         // Initialize Firebase Auth
@@ -54,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Fr
         LoginViewModel.login(email,password);
     }*/
 
-    @Override
+   @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
