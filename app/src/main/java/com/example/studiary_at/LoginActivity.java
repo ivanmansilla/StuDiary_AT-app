@@ -1,5 +1,6 @@
 package com.example.studiary_at;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -21,7 +22,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity implements LoginFragment.FragmentClickListener{
+public class LoginActivity extends AppCompatActivity {
+
     private EditText input_email;
     private EditText input_password;
     private LoginFragment loginF;
@@ -38,15 +40,17 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Fr
         register_button = findViewById(R.id.button_register_log2);
         input_email =(EditText) findViewById(R.id.textin_username_log2);
         input_password=(EditText) findViewById(R.id.textin_password_log2);
-
-
-
-
-
-
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        login_button.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        }
+    );
     }
 
    /* @Override
@@ -120,14 +124,6 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Fr
 
     private void updateUI(FirebaseUser currentUser) {
         //TODO
-    }
-
-    @Override
-    public void onFragmentClick(View.OnClickListener context) {
-        Toast.makeText(LoginActivity.this, "Succeed",
-                Toast.LENGTH_SHORT).show();
-        String email = input_email.getText().toString();
-        String password = input_password.getText().toString();
 
     }
 }
