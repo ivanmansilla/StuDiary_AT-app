@@ -8,9 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class FireBaseAdapter {
-
-
-
+    //https://stackoverflow.com/questions/42097740/firebase-admin-sdk-for-android-methods-not-found/48742381
   /*  public FireBaseAdapter() throws IOException {
         FileInputStream serviceAccount =
                 new FileInputStream("C:\\Program Files\\Android\\studiary-at-firebase-adminsdk-ek8dp-d947414867.json");
