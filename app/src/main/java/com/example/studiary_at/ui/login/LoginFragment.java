@@ -1,7 +1,5 @@
 package com.example.studiary_at.ui.login;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -117,7 +115,12 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(mListener != null){
-                    mListener.onFragmentClick(view);
+                    mListener.onFragmentClick(this);
+                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+                }
+                else{
+                    System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                 }
             }
         });
@@ -125,7 +128,7 @@ public class LoginFragment extends Fragment {
     private FragmentClickListener mListener;
 
     public interface FragmentClickListener{
-        void onFragmentClick(View v);
+        void onFragmentClick(View.OnClickListener context);
     }
     public void registerListener(FragmentClickListener mListener){
         this.mListener = mListener;

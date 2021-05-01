@@ -69,7 +69,8 @@
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textin_password_log2"
-        app:layout_constraintVertical_bias="0.085" />
+        app:layout_constraintVertical_bias="0.085"
+        />
 
     <EditText
         android:id="@+id/textin_password_log2"

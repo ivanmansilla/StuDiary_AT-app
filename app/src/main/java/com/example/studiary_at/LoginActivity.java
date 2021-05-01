@@ -11,22 +11,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.studiary_at.ui.login.ForgotPasswordFragment;
 import com.example.studiary_at.ui.login.LoginFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.example.studiary_at.ui.login.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity implements LoginFragment.FragmentClickListener{
     private FrameLayout fragmentContainer;
     private EditText input_email;
     private EditText input_password;
+    private LoginFragment loginF;
     private Button login_button;
     private FirebaseAuth mAuth;
     private static final String TAG = "Login";
@@ -34,12 +31,13 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Fr
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_login);
-
         fragmentContainer= (FrameLayout) findViewById(R.id.fragment_container_view_tag);
         final Button login_button= findViewById(R.id.button_login_log2);
         input_email =(EditText) findViewById(R.id.textin_username_log2);
         input_password=(EditText) findViewById(R.id.textin_password_log2);
-
+        login_button.setOnClickListener((v) -> {
+            onFragmentClick((View.OnClickListener) this);
+        });
 
 
         // Initialize Firebase Auth
@@ -121,10 +119,11 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.Fr
     }
 
     @Override
-    public void onFragmentClick(View v) {
-        String email = input_email.getText().toString();
-        String password = input_password.getText().toString();
+    public void onFragmentClick(View.OnClickListener context) {
         Toast.makeText(LoginActivity.this, "Succeed",
                 Toast.LENGTH_SHORT).show();
+        String email = input_email.getText().toString();
+        String password = input_password.getText().toString();
+
     }
 }

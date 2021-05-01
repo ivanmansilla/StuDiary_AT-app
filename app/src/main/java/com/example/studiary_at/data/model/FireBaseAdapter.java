@@ -1,6 +1,6 @@
 package com.example.studiary_at.data.model;
 
-import com.google.auth.oauth2.GoogleCredentials;
+//import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 
@@ -11,7 +11,7 @@ public class FireBaseAdapter {
 
 
 
-    public FireBaseAdapter() throws IOException {
+  /*  public FireBaseAdapter() throws IOException {
         FileInputStream serviceAccount =
                 new FileInputStream("C:\\Program Files\\Android\\studiary-at-firebase-adminsdk-ek8dp-d947414867.json");
 
@@ -21,7 +21,7 @@ public class FireBaseAdapter {
                 .build();
         FirebaseApp.initializeApp(options);
     }
-
+*/
 
 
 }
