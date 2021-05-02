@@ -108,8 +108,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void reload() { }
 
-    private void updateUI(FirebaseUser currentUser) {
-        //TODO
+    private void updateUI(FirebaseUser currentUser) {}
 
-    }
 }
