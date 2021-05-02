@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:recyclerview-v7:'
    // implementation 'com.google.firebase:firebase-admin:7.1.1'
 
 }
