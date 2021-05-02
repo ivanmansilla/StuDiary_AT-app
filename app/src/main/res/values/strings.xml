@@ -58,4 +58,6 @@
     <string name="titulo_nota">Titulo nota</string>
     <string name="titulo">Titulo</string>
     <string name="hecho">Hecho</string>
+    <string name="textview">TextView</string>
+    <string name="e_mail_de_l_usuari">E-MAIL DE L\'USUARI</string>
 </resources>

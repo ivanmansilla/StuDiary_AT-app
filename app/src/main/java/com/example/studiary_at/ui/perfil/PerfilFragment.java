@@ -26,7 +26,7 @@ public class PerfilFragment extends Fragment{
     private PerfilViewModel perfilViewModel;
     private Button signOut_button;
     private FirebaseAuth mAuth;
-    private TextView nombre, fecha, mail;
+    private TextView mail;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,8 +40,7 @@ public class PerfilFragment extends Fragment{
             }
 
         });
-        nombre = (TextView) root.findViewById(R.id.nombre);
-        fecha = (TextView) root.findViewById(R.id.fechanacimiento);
+
         mail = (TextView) root.findViewById(R.id.mailperfil);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
