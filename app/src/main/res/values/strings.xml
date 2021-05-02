@@ -43,4 +43,7 @@
     <string name="calendario">Calendario</string>
     <string name="events">Events:</string>
     <string name="crear_event">Crear event</string>
+    <string name="perfil" />
+    <string name="Perfil" />
+    <string name="sign_out">Sign out</string>
 </resources>
