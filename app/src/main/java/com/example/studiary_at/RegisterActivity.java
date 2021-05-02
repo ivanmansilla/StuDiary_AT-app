@@ -49,38 +49,36 @@ public class RegisterActivity extends AppCompatActivity {
                 if(!passwordReg.equals(confPasReg)){
                     Toast toast1 =
                             Toast.makeText(getApplicationContext(),
-                                    "Contraseñas no identicas!", Toast.LENGTH_SHORT);
+                                    "CONTRASEÑAS NO IDENTICAS", Toast.LENGTH_SHORT);
                     toast1.show();
                 }else{
-                    createAccount(emailReg, passwordReg);
-                    goToLoginActivity();
+                    if (isValidEmail(emailReg)) {
+                        createAccount(emailReg, passwordReg);
+                        goToLoginActivity();
+                    } else{
+                        Toast toast1 =
+                                Toast.makeText(getApplicationContext(),
+                                        "EMAIL NO CORRECTO", Toast.LENGTH_SHORT);
+                        toast1.show();
+                    }
                 }
             }
         }
         );
     }
 
+    public static boolean isValidEmail(CharSequence target) {
+        if (target == null) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+    }
+
     //Mètode per a registrar un nou usuari
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-                    }
-                });
+        mAuth.createUserWithEmailAndPassword(email, password);
         // [END create_user_with_email]
     }
 

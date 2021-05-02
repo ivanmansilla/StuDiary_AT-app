@@ -1,21 +1,17 @@
 package com.example.studiary_at;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.studiary_at.ui.login.LoginFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -47,12 +43,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 email = input_email.getText().toString();
                 password = input_password.getText().toString();
-                signIn(email, password);
+                signIn(email,password);
+                }
 
-                goToMainActivity();
-            }
         }
-    );
+        );
         register_button.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -87,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //Mètode per iniciar sessió
     private void signIn(String email, String password) {
+        mAuth = FirebaseAuth.getInstance();
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -97,10 +93,11 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            goToMainActivity();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, "EMAIL O CONTRASEÑA INCORRECTA\"",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
