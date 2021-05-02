@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +20,13 @@ import com.example.studiary_at.MainActivity;
 import com.example.studiary_at.R;
 import com.example.studiary_at.ui.settings.SettingsViewModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class PerfilFragment extends Fragment{
     private PerfilViewModel perfilViewModel;
     private Button signOut_button;
     private FirebaseAuth mAuth;
+    private TextView nombre, fecha, mail;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -35,8 +38,16 @@ public class PerfilFragment extends Fragment{
             @Override
             public void onChanged(@Nullable String s) {
             }
+
         });
+        nombre = (TextView) root.findViewById(R.id.nombre);
+        fecha = (TextView) root.findViewById(R.id.fechanacimiento);
+        mail = (TextView) root.findViewById(R.id.mailperfil);
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String emailuser;
+        emailuser = user.getEmail();
+        mail.setText(emailuser, TextView.BufferType.EDITABLE);
         signOut_button = (Button) root.findViewById(R.id.sign_out_button);
         signOut_button.setOnClickListener(new View.OnClickListener()
         {
