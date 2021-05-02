@@ -64,7 +64,7 @@
         android:layout_height="55dp"
         android:fadingEdge="none"
         android:text="@string/canvia_el_tema"
-        app:backgroundTint="#687AE3"
+        app:backgroundTint="#1C0A6E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.568"
