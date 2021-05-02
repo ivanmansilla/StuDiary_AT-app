@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AE9CFF">
+    android:background="#AE9CFF"
+    tools:context="RegisterActivity">
 
     <ImageView
         android:id="@+id/logo_reg"
@@ -123,7 +124,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/textin_confpassword_reg2"
+        android:id="@+id/textin_confpassword_reg"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
