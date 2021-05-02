@@ -8,10 +8,20 @@
     tools:context="RegisterActivity">
 
     <ImageView
+        android:id="@+id/logoback_reg"
+        android:layout_width="290dp"
+        android:layout_height="530dp"
+        android:contentDescription="@string/logoback"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_background" />
+
+    <ImageView
         android:id="@+id/logo_reg"
         android:layout_width="483dp"
         android:layout_height="53dp"
-        android:layout_marginTop="16dp"
         android:contentDescription="@string/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,18 +29,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo" />
-
-    <ImageView
-        android:id="@+id/logoback_reg"
-        android:layout_width="157dp"
-        android:layout_height="232dp"
-        android:contentDescription="@string/logoback"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/logo_background" />
 
     <Button
         android:id="@+id/button_register_reg"
@@ -43,12 +41,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.696" />
+        app:layout_constraintVertical_bias="0.707" />
 
     <EditText
         android:id="@+id/textin_name_reg"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
+        android:layout_width="352dp"
+        android:layout_height="50dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
@@ -64,12 +62,12 @@
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_reg"
-        app:layout_constraintVertical_bias="0.029" />
+        app:layout_constraintVertical_bias="0.032" />
 
     <EditText
         android:id="@+id/textin_birthday_reg"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
+        android:layout_width="346dp"
+        android:layout_height="50dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
@@ -83,14 +81,14 @@
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textin_name_reg"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.004" />
 
     <EditText
         android:id="@+id/textin_email_reg"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
+        android:layout_width="349dp"
+        android:layout_height="57dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
         android:autofillHints=""
         android:background="#FFFFFF"
@@ -104,14 +102,14 @@
 
     <EditText
         android:id="@+id/textin_password_reg"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
+        android:layout_width="347dp"
+        android:layout_height="57dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:autofillHints=""
         android:background="#FFFFFF"
-        android:hint="@string/contrase_a"
+        android:hint="@string/constrase_a_de_6_deis_caracteres"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
@@ -121,12 +119,12 @@
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textin_email_reg"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.014" />
 
     <EditText
         android:id="@+id/textin_confpassword_reg"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
+        android:layout_width="352dp"
+        android:layout_height="56dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
@@ -142,6 +140,6 @@
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textin_password_reg"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.015" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

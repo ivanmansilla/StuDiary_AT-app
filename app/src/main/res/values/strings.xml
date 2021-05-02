@@ -47,4 +47,8 @@
     <string name="afegir_nota">Afegir nota</string>
     <string name="perfil">Perfil</string>
     <string name="soy_notes_activity">Soy notes activity</string>
+    <string name="constrase_a_de_6_deis_caracteres">Constraseña (+ de 6 deis caracteres)</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="marcar_dia">Marcar dia</string>
+    <string name="mynotes">MyNotes</string>
 </resources>

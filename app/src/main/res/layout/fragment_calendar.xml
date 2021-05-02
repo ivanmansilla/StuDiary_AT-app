@@ -12,6 +12,19 @@
     tools:context=".ui.calendar.CalendarFragment">
 
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="320dp"
+        android:layout_height="540dp"
+        android:contentDescription="@string/backgroundlogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.34"
+        app:srcCompat="@drawable/logo_background" />
+
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="wrap_content"
@@ -21,31 +34,37 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.165" />
+        app:layout_constraintVertical_bias="0.284" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="72dp"
-        android:layout_height="23dp"
+        android:layout_width="238dp"
+        android:layout_height="68dp"
+        android:freezesText="true"
         android:text="@string/calendario"
+        android:textAllCaps="true"
         android:textColor="#000000"
+        android:textColorHighlight="#050505"
+        android:textIsSelectable="false"
+        android:textSize="35sp"
+        android:textStyle="normal|bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintVertical_bias="0.066" />
 
     <Button
         android:id="@+id/add_event_button_cal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/crear_event"
+        android:text="@string/marcar_dia"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.547" />
+        app:layout_constraintVertical_bias="0.786" />
 
     <Button
         android:id="@+id/add_note_button"
@@ -54,22 +73,10 @@
         android:text="@string/afegir_nota"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.661" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="156dp"
-        android:layout_height="272dp"
-        android:contentDescription="@string/backgroundlogo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/logo_background" />
+        app:layout_constraintVertical_bias="0.891" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
