@@ -51,4 +51,11 @@
     <string name="notificaciones">Notificaciones</string>
     <string name="marcar_dia">Marcar dia</string>
     <string name="mynotes">MyNotes</string>
+    <string name="nueva_nota">Nueva nota</string>
+    <string name="mant_n_pulsado_para_eliminar_nota">Mantén pulsado para eliminar nota</string>
+    <string name="mant_n_pulsada_una_nota_para_eliminarla">Mantén pulsada una nota para eliminarla</string>
+    <string name="floatingbutton">floatingbutton</string>
+    <string name="titulo_nota">Titulo nota</string>
+    <string name="titulo">Titulo</string>
+    <string name="hecho">Hecho</string>
 </resources>

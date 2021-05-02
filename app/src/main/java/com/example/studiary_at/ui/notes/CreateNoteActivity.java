@@ -8,17 +8,21 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.HashSet;
 
 
 import com.example.studiary_at.R;
+import com.example.studiary_at.RegisterActivity;
 
 
 public class CreateNoteActivity extends AppCompatActivity{
 
     int noteId;
+    private Button readyBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class CreateNoteActivity extends AppCompatActivity{
         setContentView(R.layout.activity_createnotes);
 
         EditText editText = findViewById(R.id.editText);
+        readyBtn = findViewById(R.id.note_ready_btn_createNotes);
         Intent intent = getIntent();
         noteId = intent.getIntExtra("noteId", -1);
 
@@ -49,10 +54,10 @@ public class CreateNoteActivity extends AppCompatActivity{
                 NotesActivity.notes.set(noteId, String.valueOf(charSequence));
                 NotesActivity.arrayAdapter.notifyDataSetChanged();
 
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.antonio.appnotes", Context.MODE_PRIVATE);
+                /*SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.antonio.appnotes", Context.MODE_PRIVATE);
 
                 HashSet<String> set = new HashSet<>(NotesActivity.notes);
-                sharedPreferences.edit().putStringSet("notes", set).apply();
+                sharedPreferences.edit().putStringSet("notes", set).apply();*/
 
             }
             @Override
@@ -60,5 +65,12 @@ public class CreateNoteActivity extends AppCompatActivity{
 
             }
         });
+        readyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 }

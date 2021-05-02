@@ -16,9 +16,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.studiary_at.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,6 +29,9 @@ public class NotesActivity extends AppCompatActivity {
 
     static ArrayList<String> notes = new ArrayList<>();
     static ArrayAdapter arrayAdapter;
+    private FloatingActionButton addNote_btn;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +39,43 @@ public class NotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notes);
 
         ListView listView = findViewById(R.id.listView);
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.antonio.appnotes", Context.MODE_PRIVATE);
+        addNote_btn = findViewById(R.id.add_note_button_notes);
+        /*SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.antonio.appnotes", Context.MODE_PRIVATE);
         HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes", null);
         if (set == null) {
-            notes.add("Add note");
+            notes.add("New note");
 
         } else {
             notes = new ArrayList(set);
 
-        }
-        notes.add("Example note");
+        }*/
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
 
         listView.setAdapter(arrayAdapter);
+
+        addNote_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(NotesActivity.this);
+                final EditText edittext = new EditText(NotesActivity.this);
+                alert.setMessage("Titulo de la nota");
+
+                alert.setView(edittext);
+
+                alert.setPositiveButton("Crea", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String titol = edittext.getText().toString();
+                        notes.add(titol);
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                alert.setNegativeButton("Cancela", null);
+
+                alert.show();
+
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,10 +101,10 @@ public class NotesActivity extends AppCompatActivity {
                                 notes.remove(itemToDelete);
                                 arrayAdapter.notifyDataSetChanged();
 
-                                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.antonio.appnotes", Context.MODE_PRIVATE);
+                                /*SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.antonio.appnotes", Context.MODE_PRIVATE);
 
                                 HashSet<String> set = new HashSet<>(NotesActivity.notes);
-                                sharedPreferences.edit().putStringSet("notes", set).apply();
+                                sharedPreferences.edit().putStringSet("notes", set).apply();*/
 
                             }
                         })
@@ -85,6 +114,8 @@ public class NotesActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
 
     }
 }
