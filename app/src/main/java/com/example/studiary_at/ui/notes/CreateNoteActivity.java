@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.HashSet;
 
 
 import com.example.studiary_at.R;
@@ -54,11 +53,6 @@ public class CreateNoteActivity extends AppCompatActivity{
                 NotesActivity.notes.set(noteId, String.valueOf(charSequence));
                 NotesActivity.arrayAdapter.notifyDataSetChanged();
 
-                /*SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("com.antonio.appnotes", Context.MODE_PRIVATE);
-
-                HashSet<String> set = new HashSet<>(NotesActivity.notes);
-                sharedPreferences.edit().putStringSet("notes", set).apply();*/
-
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -68,7 +62,7 @@ public class CreateNoteActivity extends AppCompatActivity{
         readyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
 

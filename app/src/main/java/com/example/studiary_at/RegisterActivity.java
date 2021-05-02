@@ -83,8 +83,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void goToLoginActivity() {
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        //startActivity(intent);
+        finish();
     }
 
     private void updateUI(FirebaseUser user) {
