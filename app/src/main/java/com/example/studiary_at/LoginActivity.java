@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button register_button;
     private String email, password;
+    public boolean signOut = false;
     private static final String TAG = "Login";
 
     protected void onCreate(Bundle savedInstanceState){
@@ -43,7 +44,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 email = input_email.getText().toString();
                 password = input_password.getText().toString();
-                signIn(email,password);
+                if(!email.equals("") || !password.equals("")){
+                    signIn(email,password);
+                }else{
+                    Toast toast1 =
+                            Toast.makeText(getApplicationContext(),
+                                    "EMAIL Y/O CONTRASEÑA VACIOS", Toast.LENGTH_SHORT);
+                    toast1.show();
+                }
                 }
 
         }
