@@ -50,7 +50,9 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
+
                 Intent notesIntent = new Intent(CalendarFragment.this.getActivity(), NotesActivity.class);
+                notesIntent.putExtra("data", stDate);
                 startActivity(notesIntent);
             }
         });

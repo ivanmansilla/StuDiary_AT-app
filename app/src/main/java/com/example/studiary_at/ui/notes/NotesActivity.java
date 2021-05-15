@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.studiary_at.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,7 +31,9 @@ public class NotesActivity extends AppCompatActivity {
     static ArrayList<String> notes = new ArrayList<>();
     static ArrayAdapter arrayAdapter;
     private FloatingActionButton addNote_btn;
-    private Date data;
+    //private Date data;
+    private String stData;
+    private TextView data;
 
 
 
@@ -41,10 +44,14 @@ public class NotesActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.listView);
         addNote_btn = findViewById(R.id.add_note_button_notes);
+        data = findViewById(R.id.dataView);
 
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
 
         listView.setAdapter(arrayAdapter);
+        Intent intent = getIntent();
+        stData = intent.getStringExtra("data");
+        data.setText(stData);
 
         addNote_btn.setOnClickListener(new View.OnClickListener() {
             @Override

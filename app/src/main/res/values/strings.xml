@@ -60,4 +60,6 @@
     <string name="hecho">Hecho</string>
     <string name="textview">TextView</string>
     <string name="e_mail_de_l_usuari">E-MAIL DE L\'USUARI</string>
+    <string name="data">Data</string>
+    <string name="date">date</string>
 </resources>
