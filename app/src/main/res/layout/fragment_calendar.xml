@@ -22,7 +22,7 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97"
+        app:layout_constraintVertical_bias="0.903"
         app:srcCompat="@drawable/logo_background" />
 
     <CalendarView
@@ -64,10 +64,9 @@
         app:backgroundTint="#1C0A6E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.669" />
+        app:layout_constraintVertical_bias="0.631" />
 
     <Button
         android:id="@+id/add_note_button"
@@ -80,7 +79,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.743" />
+        app:layout_constraintVertical_bias="0.698" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

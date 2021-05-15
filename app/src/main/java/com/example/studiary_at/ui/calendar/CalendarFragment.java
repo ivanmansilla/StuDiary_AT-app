@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,10 +21,17 @@ import com.example.studiary_at.ui.perfil.PerfilFragment;
 import com.example.studiary_at.ui.perfil.PerfilViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CalendarFragment extends Fragment {
 
     private CalendarViewModel calendarViewModel;
+    private CalendarView calendar;
     private Button goToNotesBtn;
+    private String stYear, stMonth, stDayOfMonth, stDate;
+    private Date data;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +43,7 @@ public class CalendarFragment extends Fragment {
             public void onChanged(@Nullable String s) {
             }
         });
+        calendar = (CalendarView) root.findViewById(R.id.calendarView);
         goToNotesBtn = (Button) root.findViewById(R.id.add_note_button);
         goToNotesBtn.setOnClickListener(new View.OnClickListener()
         {
@@ -43,6 +52,33 @@ public class CalendarFragment extends Fragment {
             {
                 Intent notesIntent = new Intent(CalendarFragment.this.getActivity(), NotesActivity.class);
                 startActivity(notesIntent);
+            }
+        });
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                stYear = Integer.toString(year);
+                if (month < 9){
+                    month = month + 1;//El +1 ja que per algun motiu agafa un mes menys.
+                    stMonth = Integer.toString(month);
+                    stMonth = ("0"+stMonth);
+                }else{
+                    month = month + 1;//El +1 ja que per algun motiu agafa un mes menys.
+                    stMonth = Integer.toString(month);
+                }
+                if (dayOfMonth < 9){
+                    stDayOfMonth = Integer.toString(dayOfMonth);
+                    stDayOfMonth = ("0"+stDayOfMonth);
+                }else{
+                    stDayOfMonth = Integer.toString(dayOfMonth);
+                }
+                stDate = (stDayOfMonth+"/"+stMonth+"/"+stYear);
+                try {
+                    data = new SimpleDateFormat("dd/MM/yyyy").parse(stDate); //Aconseguim la data marcada
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(data);
             }
         });
         return root;

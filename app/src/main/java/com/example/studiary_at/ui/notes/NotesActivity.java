@@ -23,12 +23,14 @@ import com.example.studiary_at.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class NotesActivity extends AppCompatActivity {
 
     static ArrayList<String> notes = new ArrayList<>();
     static ArrayAdapter arrayAdapter;
     private FloatingActionButton addNote_btn;
+    private Date data;
 
 
 
