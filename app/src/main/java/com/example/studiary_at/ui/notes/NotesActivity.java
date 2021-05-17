@@ -2,6 +2,8 @@ package com.example.studiary_at.ui.notes;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.studiary_at.R;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ public class NotesActivity extends AppCompatActivity {
     //private Date data;
     private String stData;
     private TextView data;
-
+    private RecyclerView mRecyclerView;
 
 
     @Override
@@ -45,6 +48,11 @@ public class NotesActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listView);
         addNote_btn = findViewById(R.id.add_note_button_notes);
         data = findViewById(R.id.dataView);
+
+        mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //ExtendedFloatingActionButton extendedFab = findViewById(R.id.add_note_button_notes); ---> como lo tenemos ya esta bien, no son audios, esto ira fuera
 
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
 
