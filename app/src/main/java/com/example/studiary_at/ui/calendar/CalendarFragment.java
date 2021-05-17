@@ -31,6 +31,7 @@ public class CalendarFragment extends Fragment {
     private CalendarView calendar;
     private Button goToNotesBtn;
     private String stYear, stMonth, stDayOfMonth, stDate;
+    private SimpleDateFormat sdf;
     private Date data;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,6 +46,9 @@ public class CalendarFragment extends Fragment {
         });
         calendar = (CalendarView) root.findViewById(R.id.calendarView);
         goToNotesBtn = (Button) root.findViewById(R.id.add_note_button);
+        sdf = new SimpleDateFormat("dd/MM/yyyy");
+        stDate = sdf.format(new Date(calendar.getDate()));
+        System.out.println(stDate);
         goToNotesBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -80,7 +84,6 @@ public class CalendarFragment extends Fragment {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                System.out.println(data);
             }
         });
         return root;
