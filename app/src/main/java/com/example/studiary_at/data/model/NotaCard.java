@@ -36,6 +36,10 @@ public class NotaCard {
         adapter.saveDocumentWithFile(this.noteId, this.titol, this.owner,this.contingut);
     }
 
+    public void deleteCard(){
+        //TODO --> Implementar metodo al fb adapter para eliminar una nota
+    }
+
     public NotaCard getCard() {
         HashMap<String, String> hm = adapter.getDocuments();
         Boolean answer = false;

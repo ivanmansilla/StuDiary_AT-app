@@ -2,6 +2,8 @@ package com.example.studiary_at.ui.notes;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,8 +27,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.studiary_at.R;
+import com.example.studiary_at.data.model.CustomAdapter;
 import com.example.studiary_at.data.model.NotaCard;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,7 +39,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class NotesActivity extends AppCompatActivity {
+public class NotesActivity extends AppCompatActivity implements CustomAdapter.openNoteInterface {
+
+    private Context parentContext;
+    private AppCompatActivity mActivity;
 
     static ArrayList<NotaCard> notes = new ArrayList<>();
     static ArrayAdapter arrayAdapter;
@@ -46,89 +53,107 @@ public class NotesActivity extends AppCompatActivity {
     private NotesActivityViewModel viewModel;
     private RecyclerView mRecyclerView;
     private NotaCard notaCard;
-    private String titol;
+    private String titol, contingut;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
+        parentContext = this.getBaseContext();
+        mActivity = this;
 
         //ListView listView = findViewById(R.id.listView);
-        addNote_btn = findViewById(R.id.add_note_button_notes);
-        data = findViewById(R.id.dataView);
+
 
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //ExtendedFloatingActionButton extendedFab = findViewById(R.id.add_note_button_notes); ---> como lo tenemos ya esta bien, no son audios, esto ira fuera
+        setLiveDataObservers();
 
-        //arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
+        addNote_btn = findViewById(R.id.add_note_button_notes);
+        data = findViewById(R.id.dataView);
 
-        //listView.setAdapter(arrayAdapter);
         Intent intent = getIntent();
         stData = intent.getStringExtra("data");
         data.setText(stData);
 
+
         addNote_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(NotesActivity.this);
-                final EditText edittext = new EditText(NotesActivity.this);
-                alert.setMessage("Titulo de la nota");
-
-                alert.setView(edittext);
-
-                alert.setPositiveButton("Crea", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        titol = edittext.getText().toString();
-                        viewModel.addNotaCard(titol, "", "");
-                        //notaCard = new NotaCard(titol, "", ""); //si hacemos el add en el create nota/viewModel, esto ira fuera
-                        //notes.add(notaCard);
-                        arrayAdapter.notifyDataSetChanged();
-                    }
-                });
-
-                alert.setNegativeButton("Cancela", null);
-                alert.show();
-
+                addNote(mRecyclerView);
             }
         });
 
-        //Tenemos qe cambiar, para que cuando se clique a una nota haga el intent, ahora en el recycler
+    }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void addNote(RecyclerView mRecView) {
+        View popupView = getLayoutInflater().inflate(R.layout.addnote_popup, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, 800, 600);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.showAtLocation(mRecView, Gravity.CENTER, 0, 0);
+
+        // Initialize objects from layout
+        TextInputLayout saveDescr = popupView.findViewById(R.id.note_title);
+        Button saveButton = popupView.findViewById(R.id.save_button);
+        saveButton.setOnClickListener((v) -> {
+            String title = saveDescr.getEditText().getText().toString();
+            contingut = " ";
+            viewModel.addNotaCard(title, contingut, "");
+            popupWindow.dismiss();
+        });
+    }
+
+    public void setLiveDataObservers() {
+        //Subscribe the activity to the observable
+        viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class);
+
+        final Observer<ArrayList<NotaCard>> observer = new Observer<ArrayList<NotaCard>>() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
-                intent.putExtra("noteId", i);
-                startActivity(intent);
+            public void onChanged(ArrayList<NotaCard> nc) {
+                CustomAdapter newAdapter = new CustomAdapter(parentContext, nc, (CustomAdapter.openNoteInterface) mActivity);
+                mRecyclerView.swapAdapter(newAdapter, false);
+                newAdapter.notifyDataSetChanged();
 
             }
-        });/*
+        };
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        final Observer<String> observerToast = new Observer<String>() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final int itemToDelete = i;
-                new AlertDialog.Builder(NotesActivity.this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Estas seguro?")
-                        .setMessage("Quieres borrar esta nota?")
-                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                notes.remove(itemToDelete);
-                                arrayAdapter.notifyDataSetChanged();
-
-                            }
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-
-                return true;
+            public void onChanged(String t) {
+                Toast.makeText(parentContext, t, Toast.LENGTH_SHORT).show();
             }
-        });*/
+        };
+
+        viewModel.getNotaCards().observe(this, observer);
+        viewModel.getToast().observe(this, observerToast);
 
     }
+
+    public void editNote(int nPosition){
+        Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
+        //intent.putExtra("noteId", i); TODO
+        startActivity(intent);
+    }
+
+    @Override
+    public void deleteNote(int nPosition) {
+        final int itemToDelete = nPosition;
+        new AlertDialog.Builder(NotesActivity.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Estas seguro?")
+                .setMessage("Quieres borrar esta nota?")
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        viewModel.deleteNotaCard(nPosition);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+
 }

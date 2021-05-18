@@ -82,17 +82,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     private void openNote(int position) {
         // Play audio for clicked note
         //listener.startPlaying(position);
-        listener.openNote(position);
+        listener.editNote(position);
         // Que se nos abra la nota para poder editarla (o solo verla)
     }
 
-    private void deleteNote(int position){
+    private void removeNote(int position){
         listener.deleteNote(position);
     }
 
     public interface openNoteInterface {
-        void openNote(int fileName);
-        void deleteNote(int fileName);
+        void editNote(int nPosition);
+        void deleteNote(int nPosition);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -109,15 +109,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         Button editButton = viewHolder.getEditButton();
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                openNote(position);
-            }
+            public void onClick(View view) { openNote(position); }
         });
         Button deleteButton = viewHolder.getDeleteButton();
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteNote(position);
+                removeNote(position);
             }
         });
     }

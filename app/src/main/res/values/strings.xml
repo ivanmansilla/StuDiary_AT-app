@@ -63,4 +63,6 @@
     <string name="data">Data</string>
     <string name="date">date</string>
     <string name="title">title</string>
+    <string name="titulo_de_la_nota">Titulo de la nota</string>
+    <string name="guardar_nota">Guardar nota</string>
 </resources>

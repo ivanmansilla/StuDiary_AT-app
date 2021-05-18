@@ -14,8 +14,10 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
     private final MutableLiveData<ArrayList<NotaCard>> mNotaCards;
     private final MutableLiveData<String> mToast;
 
-    public NotesActivityViewModel(){
+    public static final String TAG = "ViewModel";
 
+    public NotesActivityViewModel(){
+        System.out.println("HOLA SOY EL CONSTRUCTOR DE NOTESACTIVITYVIEWMODEL");
         mNotaCards = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
         FireBaseAdapter fa = new FireBaseAdapter(this);
@@ -37,6 +39,12 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         // Inform observer.
         mNotaCards.setValue(mNotaCards.getValue());
         nc.saveCard();
+    }
+
+    public void deleteNotaCard(int position){
+        NotaCard nc = mNotaCards.getValue().remove(position);
+        //Inform observer
+        mNotaCards.setValue(mNotaCards.getValue());
     }
 
 
