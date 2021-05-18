@@ -38,7 +38,7 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         mNotaCards.getValue().add(nc);
         // Inform observer.
         mNotaCards.setValue(mNotaCards.getValue());
-        nc.saveCard();
+        //nc.saveCard();
     }
 
     public void deleteNotaCard(int position){

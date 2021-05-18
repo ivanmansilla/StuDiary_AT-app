@@ -31,9 +31,8 @@ public class NotaCard {
     }
 
     public void saveCard() {
-
         Log.d("saveCard", "saveCard-> saveDocument");
-        adapter.saveDocumentWithFile(this.noteId, this.titol, this.owner,this.contingut);
+        adapter.saveDocument(this.noteId, this.titol, this.owner,this.contingut);
     }
 
     public void deleteCard(){
