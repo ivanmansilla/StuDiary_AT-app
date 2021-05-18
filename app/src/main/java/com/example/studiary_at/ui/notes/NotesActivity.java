@@ -88,23 +88,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
 
     }
 
-    private void addNote(RecyclerView mRecView) {
-        View popupView = getLayoutInflater().inflate(R.layout.addnote_popup, null);
-        PopupWindow popupWindow = new PopupWindow(popupView, 800, 600);
-        popupWindow.setFocusable(true);
-        popupWindow.setBackgroundDrawable(new ColorDrawable());
-        popupWindow.showAtLocation(mRecView, Gravity.CENTER, 0, 0);
 
-        // Initialize objects from layout
-        TextInputLayout saveDescr = popupView.findViewById(R.id.note_title);
-        Button saveButton = popupView.findViewById(R.id.save_button);
-        saveButton.setOnClickListener((v) -> {
-            String title = saveDescr.getEditText().getText().toString();
-            contingut = " ";
-            viewModel.addNotaCard(title, contingut, "");
-            popupWindow.dismiss();
-        });
-    }
 
     public void setLiveDataObservers() {
         //Subscribe the activity to the observable
@@ -132,10 +116,31 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
 
     }
 
+    private void addNote(RecyclerView mRecView) {
+        View popupView = getLayoutInflater().inflate(R.layout.addnote_popup, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, 800, 600);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.showAtLocation(mRecView, Gravity.CENTER, 0, 0);
+
+        // Initialize objects from layout
+        TextInputLayout saveDescr = popupView.findViewById(R.id.note_title);
+        Button saveButton = popupView.findViewById(R.id.save_button);
+        saveButton.setOnClickListener((v) -> {
+            String title = saveDescr.getEditText().getText().toString();
+            contingut = " ";
+            viewModel.addNotaCard(title, contingut, "");
+            popupWindow.dismiss();
+        });
+    }
+
     public void editNote(int nPosition){
+        String title = viewModel.getNotaCard(nPosition).getTitol();
         Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
-        //intent.putExtra("noteId", i); TODO
-        startActivity(intent);
+        intent.putExtra("titol", title);
+        intent.putExtra("position", nPosition);
+        getApplicationContext().startActivity(intent);
+
     }
 
     @Override
