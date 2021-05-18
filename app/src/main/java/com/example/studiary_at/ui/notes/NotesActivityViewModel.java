@@ -29,7 +29,7 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
     public NotaCard getNotaCard(int idx){
         return mNotaCards.getValue().get(idx);
     }
-    //Este metodo el getAudioCard nose si lo tendremos que usar, alomejor sera para cuando le demos a afegir nota que te las muestre, but idl
+    //Este metodo el getNotaCard nose si lo tendremos que usar, alomejor sera para cuando le demos a afegir nota que te las muestre, but idk
 
     public void addNotaCard(String titol, String contingut, String owner){
         NotaCard nc = new NotaCard(titol, contingut, owner);
@@ -38,7 +38,7 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         mNotaCards.setValue(mNotaCards.getValue());
         nc.saveCard();
     }
-    //el add nota en la otra app se usa en el main, creo que tendremos que hacer algo parecido pero en el create nota activity, creo
+
 
     public LiveData<String> getToast(){
         return mToast;

@@ -37,15 +37,14 @@ public class CreateNoteActivity extends AppCompatActivity{
         title = intent.getStringExtra("title");
 
         if (noteId != -1) {
-            contingutText.setText(NotesActivity.notes.get(noteId)); //Si no añades el charSequence cast da error :3
+            contingutText.setText((CharSequence) NotesActivity.notes.get(noteId)); //Si no añades el charSequence cast da error :3
 
         } else {
-            contingut = contingutText.getText().toString();
-            notaCard = new NotaCard(title, contingut, "");
-            //Si lo hacemos con el contingut, el conrtigut = getContingut(); y no asi directamente
-            NotesActivity.notes.add(notaCard); //Suponiendo que se añadira asi la nota sinp ira en el viewModel
+            //contingut = contingutText.getText().toString();
+            //notaCard = new NotaCard(title, contingut, "");
+            //NotesActivity.notes.add(notaCard); //Suponiendo que se añadira asi la nota sinp ira en el viewModel
             //viewModel.addNotaCard(title, contingut, ""); //Si lo hacemos desde el viewmodel (que creo que si) sera asi
-            noteId = NotesActivity.notes.size() -1;//Creo que le tendremos que pasar la notaId tambien al crearla
+            noteId = NotesActivity.notes.size() -1;
             NotesActivity.arrayAdapter.notifyDataSetChanged();
 
         }
@@ -56,11 +55,8 @@ public class CreateNoteActivity extends AppCompatActivity{
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                NotesActivity.notes.set(noteId, String.valueOf(charSequence));
-                //Si cambiamos el texto tendremos que usar el setContingut para cambiar el texto
-                //ex: setContingut(contingutText.getText().toString());
+                //NotesActivity.notes.set(noteId, String.valueOf(charSequence));
                 NotesActivity.arrayAdapter.notifyDataSetChanged();
-
             }
             @Override
             public void afterTextChanged(Editable editable) {
@@ -70,6 +66,8 @@ public class CreateNoteActivity extends AppCompatActivity{
         readyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notaCard.setContingut(contingutText.getText().toString());
+                NotesActivity.notes.set(noteId, notaCard);
                 finish();
             }
         });

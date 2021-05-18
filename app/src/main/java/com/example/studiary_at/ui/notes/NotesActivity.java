@@ -82,6 +82,7 @@ public class NotesActivity extends AppCompatActivity {
                 alert.setPositiveButton("Crea", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         titol = edittext.getText().toString();
+                        viewModel.addNotaCard(titol, "", "");
                         //notaCard = new NotaCard(titol, "", ""); //si hacemos el add en el create nota/viewModel, esto ira fuera
                         //notes.add(notaCard);
                         arrayAdapter.notifyDataSetChanged();
@@ -89,19 +90,18 @@ public class NotesActivity extends AppCompatActivity {
                 });
 
                 alert.setNegativeButton("Cancela", null);
-
                 alert.show();
 
             }
         });
 
         //Tenemos qe cambiar, para que cuando se clique a una nota haga el intent, ahora en el recycler
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
                 intent.putExtra("noteId", i);
-                intent.putExtra("title", titol);
                 startActivity(intent);
 
             }
