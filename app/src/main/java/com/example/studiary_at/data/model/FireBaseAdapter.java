@@ -71,7 +71,8 @@ public class FireBaseAdapter {
                             ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new NotaCard( document.getString("description"), document.getString("url"), document.getString("userid")));
+                                retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner")/*, document
+                                .getString("data")*/));
                             }
                             listener.setCollection(retrieved_ac);
 
@@ -82,19 +83,18 @@ public class FireBaseAdapter {
                 });
     }
 
-    public void saveDocument (String id, String description, String userid, String url) {
-        // Create a new user with a first and last name
-        /*Map<String, Object> note = new HashMap<>();
-        note.put("id", id);
-        note.put("description", description);
-        note.put("userid", userid);
-        note.put("url", url);*/
-
+    public void saveDocument (String noteId, String title, String owner, String contingut/*, String data*/) {
+        Map<String, Object> note = new HashMap<>();
+        note.put("noteId", noteId);
+        note.put("title", title);
+        note.put("owner", owner);
+        note.put("contingut", contingut);
+        //note.put("data", data);
 
         Log.d(TAG, "saveDocument");
         // Add a new document with a generated ID
         db.collection("notaCards")
-                .add(user)
+                .add(note)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

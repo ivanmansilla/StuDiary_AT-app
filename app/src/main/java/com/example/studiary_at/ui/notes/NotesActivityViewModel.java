@@ -8,6 +8,7 @@ import com.example.studiary_at.data.model.FireBaseAdapter;
 import com.example.studiary_at.data.model.NotaCard;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapter.vmInterface {
 
@@ -21,7 +22,7 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         mNotaCards = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
         FireBaseAdapter fa = new FireBaseAdapter(this);
-        fa.getCollection(); // si no me equivoco sirve para recuperar las notas del firebase
+        fa.getCollection();
 
     }
 
@@ -33,18 +34,20 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
     }
     //Este metodo el getNotaCard nose si lo tendremos que usar, alomejor sera para cuando le demos a afegir nota que te las muestre, but idk
 
-    public void addNotaCard(String titol, String contingut, String owner){
-        NotaCard nc = new NotaCard(titol, contingut, owner);
+    public void addNotaCard(String titol, String contingut, String owner/*, String data*/){
+        NotaCard nc = new NotaCard(titol, contingut, owner/*, data*/);
         mNotaCards.getValue().add(nc);
         // Inform observer.
         mNotaCards.setValue(mNotaCards.getValue());
-        //nc.saveCard();
+        nc.saveCard();
     }
 
     public void deleteNotaCard(int position){
         NotaCard nc = mNotaCards.getValue().remove(position);
         //Inform observer
         mNotaCards.setValue(mNotaCards.getValue());
+        setCollection(mNotaCards.getValue());
+        //nc.deleteCard(); //Falta eliminar la nota a nivel de firebase, que se actualize con la nota eliminada
     }
 
 
