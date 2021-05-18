@@ -39,6 +39,9 @@ public class FireBaseAdapter {
         return null;
     }
 
+    public void getCollection() {
+    }
+
 
     public interface vmInterface{
         void setCollection(ArrayList<NotaCard> nc);

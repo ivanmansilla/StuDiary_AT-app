@@ -45,7 +45,7 @@ public class NotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
 
-        ListView listView = findViewById(R.id.listView);
+        //ListView listView = findViewById(R.id.listView);
         addNote_btn = findViewById(R.id.add_note_button_notes);
         data = findViewById(R.id.dataView);
 
@@ -54,9 +54,9 @@ public class NotesActivity extends AppCompatActivity {
 
         //ExtendedFloatingActionButton extendedFab = findViewById(R.id.add_note_button_notes); ---> como lo tenemos ya esta bien, no son audios, esto ira fuera
 
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
+        //arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
 
-        listView.setAdapter(arrayAdapter);
+        //listView.setAdapter(arrayAdapter);
         Intent intent = getIntent();
         stData = intent.getStringExtra("data");
         data.setText(stData);
@@ -85,7 +85,7 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
@@ -116,7 +116,7 @@ public class NotesActivity extends AppCompatActivity {
 
                 return true;
             }
-        });
+        });*/
 
 
 

@@ -62,4 +62,5 @@
     <string name="e_mail_de_l_usuari">E-MAIL DE L\'USUARI</string>
     <string name="data">Data</string>
     <string name="date">date</string>
+    <string name="title">title</string>
 </resources>

@@ -2,35 +2,38 @@ package com.example.studiary_at.data.model;
 
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class NotaCard {
 
-    private String noteId;
-    private final String titol, address, owner;
+    private String noteId, contingut;
+    private final String titol, owner;
     private final FireBaseAdapter adapter = FireBaseAdapter.firebaseAdapter;
 
-    public NotaCard(String description, String localPath, String owner) {
+    public NotaCard(String description, String contingut, String owner) {
         //this.noteId = id;
         this.titol = description;
-        this.address = localPath;
         this.owner = owner;
+        this.contingut = contingut;
         UUID uuid = UUID.randomUUID();
         this.noteId = uuid.toString();
     }
 
     public String getTitol() { return titol; }
 
-    public String getAddress() { return address; }
+    public String getContingut() { return contingut; }
 
     public void setNoteId(String noteId) { this.noteId = noteId; }
+
+    public void setContingut(String contingut) {
+        this.contingut = contingut;
+    }
 
     public void saveCard() {
 
         Log.d("saveCard", "saveCard-> saveDocument");
-        adapter.saveDocumentWithFile(this.noteId, this.titol, this.owner,this.address);
+        adapter.saveDocumentWithFile(this.noteId, this.titol, this.owner,this.contingut);
     }
 
     public NotaCard getCard() {

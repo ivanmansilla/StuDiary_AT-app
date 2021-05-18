@@ -18,27 +18,27 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
 
         mNotaCards = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
-        FireBaseAdapter da = new FireBaseAdapter(this);
-        //da.getCollection(); // si no me equivoco sirve para recuperar las notas del firebase
+        FireBaseAdapter fa = new FireBaseAdapter(this);
+        fa.getCollection(); // si no me equivoco sirve para recuperar las notas del firebase
 
     }
 
-    public LiveData<ArrayList<NotaCard>> getAudioCards(){
+    public LiveData<ArrayList<NotaCard>> getNotaCards(){
         return mNotaCards;
     }
-    public NotaCard getAudioCard(int idx){
+    public NotaCard getNotaCard(int idx){
         return mNotaCards.getValue().get(idx);
     }
     //Este metodo el getAudioCard nose si lo tendremos que usar, alomejor sera para cuando le demos a afegir nota que te las muestre, but idl
 
-    public void addAudioCard(String description, String localPath, String owner){
-        NotaCard ac = new NotaCard(description, localPath, owner);
-        mNotaCards.getValue().add(ac);
+    public void addNotaCard(String titol, String localPath, String owner){
+        NotaCard nc = new NotaCard(titol, localPath, owner);
+        mNotaCards.getValue().add(nc);
         // Inform observer.
         mNotaCards.setValue(mNotaCards.getValue());
-        ac.saveCard();
+        nc.saveCard();
     }
-    //el add audio en la otra app se usa en el main, creo que tendremos que hacer algo parecido pero en el create nota activity, creo
+    //el add nota en la otra app se usa en el main, creo que tendremos que hacer algo parecido pero en el create nota activity, creo
 
     public LiveData<String> getToast(){
         return mToast;
