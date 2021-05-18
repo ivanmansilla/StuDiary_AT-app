@@ -11,8 +11,8 @@ public class NotaCard {
     private final String titol, owner;
     private final FireBaseAdapter adapter = FireBaseAdapter.firebaseAdapter;
 
-    public NotaCard(String description, String contingut, String owner) {
-        //this.noteId = id;
+    public NotaCard(String description, String contingut, String owner) { //DE alguna forma tendremos que darle la data, y cuando
+        //this.noteId = id;                                               //se muestren las notas, que mire la data y sean solo de esa data
         this.titol = description;
         this.owner = owner;
         this.contingut = contingut;

@@ -11,33 +11,42 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 //import android.support.v7.app.AlertDialog;
 //import android.support.v7.app.AppCompatActivity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 //import android.view.Menu;
 //import android.view.MenuInflater;
 //import android.view.MenuItem;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.studiary_at.R;
+import com.example.studiary_at.data.model.NotaCard;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class NotesActivity extends AppCompatActivity {
 
-    static ArrayList<String> notes = new ArrayList<>();
+    static ArrayList<NotaCard> notes = new ArrayList<>();
     static ArrayAdapter arrayAdapter;
     private FloatingActionButton addNote_btn;
     //private Date data;
     private String stData;
     private TextView data;
+    private NotesActivityViewModel viewModel;
     private RecyclerView mRecyclerView;
+    private NotaCard notaCard;
+    private String titol;
 
 
     @Override
@@ -72,8 +81,9 @@ public class NotesActivity extends AppCompatActivity {
 
                 alert.setPositiveButton("Crea", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        String titol = edittext.getText().toString();
-                        notes.add(titol);
+                        titol = edittext.getText().toString();
+                        //notaCard = new NotaCard(titol, "", ""); //si hacemos el add en el create nota/viewModel, esto ira fuera
+                        //notes.add(notaCard);
                         arrayAdapter.notifyDataSetChanged();
                     }
                 });
@@ -85,15 +95,17 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
 
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //Tenemos qe cambiar, para que cuando se clique a una nota haga el intent, ahora en el recycler
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
                 intent.putExtra("noteId", i);
+                intent.putExtra("title", titol);
                 startActivity(intent);
 
             }
-        });
+        });/*
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -117,8 +129,6 @@ public class NotesActivity extends AppCompatActivity {
                 return true;
             }
         });*/
-
-
 
     }
 }

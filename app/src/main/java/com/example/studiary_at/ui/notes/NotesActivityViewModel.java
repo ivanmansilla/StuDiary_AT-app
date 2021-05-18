@@ -31,8 +31,8 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
     }
     //Este metodo el getAudioCard nose si lo tendremos que usar, alomejor sera para cuando le demos a afegir nota que te las muestre, but idl
 
-    public void addNotaCard(String titol, String localPath, String owner){
-        NotaCard nc = new NotaCard(titol, localPath, owner);
+    public void addNotaCard(String titol, String contingut, String owner){
+        NotaCard nc = new NotaCard(titol, contingut, owner);
         mNotaCards.getValue().add(nc);
         // Inform observer.
         mNotaCards.setValue(mNotaCards.getValue());
