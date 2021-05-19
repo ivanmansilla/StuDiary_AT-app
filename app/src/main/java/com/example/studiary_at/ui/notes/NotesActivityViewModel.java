@@ -21,7 +21,8 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         System.out.println("HOLA SOY EL CONSTRUCTOR DE NOTESACTIVITYVIEWMODEL");
         mNotaCards = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
-        FireBaseAdapter fa = new FireBaseAdapter(this);
+        FireBaseAdapter fa = new FireBaseAdapter(this); //creo que habra que hacer un singleton aqui
+        setCollection(mNotaCards.getValue());
         fa.getCollection();
 
     }
@@ -43,11 +44,13 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
     }
 
     public void deleteNotaCard(int position){
-        NotaCard nc = mNotaCards.getValue().remove(position);
+        NotaCard nc = mNotaCards.getValue().get(position);
+        mNotaCards.getValue().remove(nc);
         //Inform observer
         mNotaCards.setValue(mNotaCards.getValue());
         setCollection(mNotaCards.getValue());
-        //nc.deleteCard(); //Falta eliminar la nota a nivel de firebase, que se actualize con la nota eliminada
+        //fa.deleteCollection(nc);
+        nc.deleteCard(mNotaCards.getValue()); //Falta eliminar la nota a nivel de firebase, que se actualize con la nota eliminada
     }
 
 

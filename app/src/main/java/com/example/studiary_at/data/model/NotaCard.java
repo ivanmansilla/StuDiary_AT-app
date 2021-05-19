@@ -2,7 +2,7 @@ package com.example.studiary_at.data.model;
 
 import android.util.Log;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -37,9 +37,9 @@ public class NotaCard {
         adapter.saveDocument(this.noteId, this.titol, this.owner,this.contingut/*, this.data*/);
     }
 
-    public void deleteCard(){
+    public void deleteCard(ArrayList<NotaCard> nota){
         //TODO --> Implementar metodo al fb adapter para eliminar una nota
-        //adapter.setCollection();
+        adapter.deleteNotaOfCollection(nota);
 
     }
 

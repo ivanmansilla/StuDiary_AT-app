@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.squareup.okhttp.internal.Internal.instance;
+
 public class FireBaseAdapter {
     public static final String TAG = "DatabaseAdapter";
 
@@ -49,7 +51,6 @@ public class FireBaseAdapter {
         FirebaseFirestore.setLoggingEnabled(true);
         initFirebase();
     }
-
 
     public interface vmInterface{
         void setCollection(ArrayList<NotaCard> nc);
@@ -83,6 +84,33 @@ public class FireBaseAdapter {
                 });
     }
 
+    public void deleteNotaOfCollection(ArrayList<NotaCard> nota) {
+        Log.d(TAG,"updatenotaCards");
+        FireBaseAdapter.db.collection("notaCards")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                /*retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner")/*, document
+                                .getString("data")));*/
+                                retrieved_ac = nota;
+                            }
+                            for(NotaCard nota2 : retrieved_ac){
+                                System.out.println(nota2);
+                            }
+                            listener.setCollection(retrieved_ac);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
     public void saveDocument (String noteId, String title, String owner, String contingut/*, String data*/) {
         Map<String, Object> note = new HashMap<>();
         note.put("noteId", noteId);
@@ -108,6 +136,8 @@ public class FireBaseAdapter {
                     }
                 });
     }
+
+
 
     /*public void saveDocumentWithFile (String noteId, String description, String owner, String contingut) {
 
