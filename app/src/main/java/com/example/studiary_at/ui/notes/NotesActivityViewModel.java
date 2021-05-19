@@ -14,7 +14,6 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
 
     private final MutableLiveData<ArrayList<NotaCard>> mNotaCards;
     private final MutableLiveData<String> mToast;
-
     public static final String TAG = "ViewModel";
 
     public NotesActivityViewModel(){
@@ -35,8 +34,8 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
     }
     //Este metodo el getNotaCard nose si lo tendremos que usar, alomejor sera para cuando le demos a afegir nota que te las muestre, but idk
 
-    public void addNotaCard(String titol, String contingut, String owner/*, String data*/){
-        NotaCard nc = new NotaCard(titol, contingut, owner/*, data*/);
+    public void addNotaCard(String titol, String contingut, String owner, String data){
+        NotaCard nc = new NotaCard(titol, contingut, owner, data);
         mNotaCards.getValue().add(nc);
         // Inform observer.
         mNotaCards.setValue(mNotaCards.getValue());
@@ -49,8 +48,8 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         //Inform observer
         mNotaCards.setValue(mNotaCards.getValue());
         setCollection(mNotaCards.getValue());
-        //fa.deleteCollection(nc);
         nc.deleteCard(mNotaCards.getValue()); //Falta eliminar la nota a nivel de firebase, que se actualize con la nota eliminada
+
     }
 
 

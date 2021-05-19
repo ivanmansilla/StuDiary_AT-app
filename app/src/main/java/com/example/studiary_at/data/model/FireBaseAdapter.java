@@ -72,8 +72,8 @@ public class FireBaseAdapter {
                             ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner")/*, document
-                                .getString("data")*/));
+                                retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
+                                .getString("data")));
                             }
                             listener.setCollection(retrieved_ac);
 
@@ -96,11 +96,16 @@ public class FireBaseAdapter {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                /*retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner")/*, document
-                                .getString("data")));*/
+                                /*retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document.getString("data")));
+                                for(NotaCard nc : retrieved_ac){
+                                    if(nc.getTitol().equals(nota.getTitol())){
+                                        retrieved_ac.remove(nc);
+                                    }
+                                }*/
                                 retrieved_ac = nota;
                             }
                             for(NotaCard nota2 : retrieved_ac){
+                                System.out.println("NOTA2");
                                 System.out.println(nota2);
                             }
                             listener.setCollection(retrieved_ac);
@@ -111,13 +116,13 @@ public class FireBaseAdapter {
                 });
     }
 
-    public void saveDocument (String noteId, String title, String owner, String contingut/*, String data*/) {
+    public void saveDocument (String noteId, String title, String owner, String contingut, String data) {
         Map<String, Object> note = new HashMap<>();
         note.put("noteId", noteId);
         note.put("title", title);
         note.put("owner", owner);
         note.put("contingut", contingut);
-        //note.put("data", data);
+        note.put("data", data);
 
         Log.d(TAG, "saveDocument");
         // Add a new document with a generated ID
@@ -127,6 +132,7 @@ public class FireBaseAdapter {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -135,6 +141,13 @@ public class FireBaseAdapter {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
+    }
+    public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota) {
+        Log.d(TAG, "saveDocument");
+        System.out.println("ESTOY AQUIIIIIIIIIIIIIIII");
+        db.collection("notaCards").document().delete(); //PARA ELIMINAR LA NOTA TENEMOS QUE ELEMINAR EL DOCUMENTO(SOLO FALTA SABER CUAL ES
+        //SU ID DEL FIREBASE, EJEMPLO --> D/DatabaseAdapter: 5at0Dihc0VI0GVMZTANX ESTE ES EL ID => {owner=, noteId=02bd75cb-13ca-49ac-b52c-6d76205be6fc, contingut= , title=gggg}
+        //deleteNotaOfCollection(nota);
     }
 
 

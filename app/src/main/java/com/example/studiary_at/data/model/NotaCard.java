@@ -9,15 +9,16 @@ import java.util.UUID;
 public class NotaCard {
 
     private String noteId, contingut;
-    private final String titol, owner;//, data;
+    private final String titol, owner, data;
     private final FireBaseAdapter adapter = FireBaseAdapter.firebaseAdapter;
+    public boolean updat = false;
 
-    public NotaCard(String description, String contingut, String owner/*, String date*/) { //DE alguna forma tendremos que darle la data, y cuando
+    public NotaCard(String description, String contingut, String owner, String date) { //DE alguna forma tendremos que darle la data, y cuando
         //this.noteId = id;                                               //se muestren las notas, que mire la data y sean solo de esa data
         this.titol = description;
         this.owner = owner;
         this.contingut = contingut;
-        //this.data = date;
+        this.data = date;
         UUID uuid = UUID.randomUUID();
         this.noteId = uuid.toString();
     }
@@ -26,6 +27,9 @@ public class NotaCard {
 
     public String getContingut() { return contingut; }
 
+    public String getNoteId() {
+        return noteId;
+    }
     public void setNoteId(String noteId) { this.noteId = noteId; }
 
     public void setContingut(String contingut) {
@@ -34,12 +38,14 @@ public class NotaCard {
 
     public void saveCard() {
         Log.d("saveCard", "saveCard-> saveDocument");
-        adapter.saveDocument(this.noteId, this.titol, this.owner,this.contingut/*, this.data*/);
+        adapter.saveDocument(this.noteId, this.titol, this.owner,this.contingut, this.data);
     }
 
     public void deleteCard(ArrayList<NotaCard> nota){
         //TODO --> Implementar metodo al fb adapter para eliminar una nota
-        adapter.deleteNotaOfCollection(nota);
+        Log.d("deleteCard", "deleteCard-> deleteDocument");
+        //adapter.deleteNotaOfCollection(nota);
+        adapter.deleteDocument(this,nota);
 
     }
 
@@ -47,7 +53,7 @@ public class NotaCard {
         HashMap<String, String> hm = adapter.getDocuments();
         Boolean answer = false;
         if (hm != null) {
-            NotaCard nc = new NotaCard(hm.get("description"), "", hm.get("owner")/*, data*/);
+            NotaCard nc = new NotaCard(hm.get("description"), "", hm.get("owner"), hm.get("data"));
             nc.setNoteId(hm.get("noteid"));
             return nc;
         } else {

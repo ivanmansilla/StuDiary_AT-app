@@ -129,7 +129,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         saveButton.setOnClickListener((v) -> {
             String title = saveDescr.getEditText().getText().toString();
             contingut = " ";
-            viewModel.addNotaCard(title, contingut, "");
+            viewModel.addNotaCard(title, contingut, "", stData);
             popupWindow.dismiss();
         });
     }
