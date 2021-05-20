@@ -154,12 +154,11 @@ public class FireBaseAdapter {
                     }
                 });*/
     }
-    public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, String pos) {
+    public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, int pos) {
         Log.d(TAG, "saveDocument");
         System.out.println("ESTOY AQUIIIIIIIIIIIIIIII");
-        int position3 = Integer.parseInt(pos);
-        position3++;
-        position = String.valueOf(position3);
+        pos++;
+        position = String.valueOf(pos);
         //position = pos;
         //System.out.println("EOOOOO" + db.collection("notaCards").document(idNotes.get(tempPos)));
         System.out.println(position + " positiioo 1");

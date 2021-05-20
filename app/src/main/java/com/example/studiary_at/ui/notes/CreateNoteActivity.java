@@ -33,7 +33,7 @@ public class CreateNoteActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createnotes);
 
-        viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class); //TODO --> Hacer singleton con NoteActivity
+        viewModel = viewModel.getInstance();
 
         contingutText = (EditText) findViewById(R.id.textContingut);
         readyBtn = findViewById(R.id.note_ready_btn_createNotes);

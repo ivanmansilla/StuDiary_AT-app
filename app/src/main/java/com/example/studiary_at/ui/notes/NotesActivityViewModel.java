@@ -3,6 +3,7 @@ package com.example.studiary_at.ui.notes;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.studiary_at.data.model.FireBaseAdapter;
 import com.example.studiary_at.data.model.NotaCard;
@@ -15,6 +16,7 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
     private final MutableLiveData<ArrayList<NotaCard>> mNotaCards;
     private final MutableLiveData<String> mToast;
     public static final String TAG = "ViewModel";
+    private static NotesActivityViewModel uniqueInstance;
 
     public NotesActivityViewModel(){
         System.out.println("HOLA SOY EL CONSTRUCTOR DE NOTESACTIVITYVIEWMODEL");
@@ -24,6 +26,18 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         setCollection(mNotaCards.getValue());
         fa.getCollection();
 
+    }
+
+    public static NotesActivityViewModel getInstance() {
+        /*if (uniqueInstance == null) {
+            uniqueInstance = new ViewModelProvider(NotesActivity).get(NotesActivityViewModel.class);
+        }*/
+        return uniqueInstance;
+    }
+
+
+    public void setInstance(NotesActivityViewModel viewModel) {
+        uniqueInstance = viewModel;
     }
 
     public LiveData<ArrayList<NotaCard>> getNotaCards(){
@@ -42,9 +56,19 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
     }
 
     public void editNotaCard(String title, String contingut, int position) {
+        NotaCard nc = getNotaCard(position);
+
+        //nc.deleteCard(mNotaCards.getValue(), position);
+
         mNotaCards.getValue().get(position).setContingut(contingut);
         mNotaCards.getValue().get(position).setTitol(title);
+
+        nc.setContingut(contingut);
+        nc.setTitol(title);
+
         mNotaCards.setValue(mNotaCards.getValue());
+
+        //nc.saveCard();
         //TODO --> que se edite tambien en firebase (nc.saveCard() o por el estilo)
 
     }

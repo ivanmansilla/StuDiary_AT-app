@@ -62,8 +62,6 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         parentContext = this.getBaseContext();
         mActivity = this;
 
-        //ListView listView = findViewById(R.id.listView);
-
 
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -92,6 +90,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
     public void setLiveDataObservers() {
         //Subscribe the activity to the observable
         viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class);
+        viewModel.setInstance(viewModel);
 
         final Observer<ArrayList<NotaCard>> observer = new Observer<ArrayList<NotaCard>>() {
             @Override
