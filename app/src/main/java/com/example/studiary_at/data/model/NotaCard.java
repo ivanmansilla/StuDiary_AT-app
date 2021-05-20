@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class NotaCard {
 
-    private String noteId, contingut, titol;
+    private String noteId, contingut, titol, position;
     private final String owner, data;
     private final FireBaseAdapter adapter = FireBaseAdapter.firebaseAdapter;
     public boolean updat = false;
@@ -19,6 +19,7 @@ public class NotaCard {
         this.owner = owner;
         this.contingut = contingut;
         this.data = date;
+        //this.position = position;
         UUID uuid = UUID.randomUUID();
         this.noteId = uuid.toString();
     }
@@ -26,6 +27,8 @@ public class NotaCard {
     public String getTitol() { return titol; }
 
     public String getContingut() { return contingut; }
+
+    public String getPosition(){ return position;}
 
     public String getNoteId() {
         return noteId;
@@ -43,11 +46,12 @@ public class NotaCard {
         adapter.saveDocument(this.noteId, this.titol, this.owner,this.contingut, this.data);
     }
 
-    public void deleteCard(ArrayList<NotaCard> nota){
+    public void deleteCard(ArrayList<NotaCard> nota, int pos){
         //TODO --> Implementar metodo al fb adapter para eliminar una nota
         Log.d("deleteCard", "deleteCard-> deleteDocument");
         //adapter.deleteNotaOfCollection(nota);
-        adapter.deleteDocument(this,nota);
+        position = String.valueOf(pos);
+        adapter.deleteDocument(this, nota, position);
 
     }
 

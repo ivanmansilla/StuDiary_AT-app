@@ -40,6 +40,8 @@ public class FireBaseAdapter {
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user;
+    private int size;
+    private String position, position2;
 
 
     public static vmInterface listener;
@@ -117,35 +119,64 @@ public class FireBaseAdapter {
     }
 
     public void saveDocument (String noteId, String title, String owner, String contingut, String data) {
+        System.out.println("saveDOCument 1");
         Map<String, Object> note = new HashMap<>();
         note.put("noteId", noteId);
         note.put("title", title);
         note.put("owner", owner);
         note.put("contingut", contingut);
         note.put("data", data);
-
+        int pos = size+1;
+        position2 = String.valueOf(pos);
+        //note.put("position", position2);
         Log.d(TAG, "saveDocument");
+        System.out.println(position2 + " positiioo 2");
+        db.collection("notaCards").document(position2).set(note);
+        size++;
         // Add a new document with a generated ID
-        db.collection("notaCards")
+        /*db.collection("notaCards")
                 .add(note)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+                        System.out.println("saveDOCument 3");
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-
+                        idNotes.add(documentReference.getId());
+                        System.out.println("saveDOCument 4");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        System.out.println("saveDOCument 5");
                         Log.w(TAG, "Error adding document", e);
+                        System.out.println("saveDOCument 6");
                     }
-                });
+                });*/
     }
-    public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota) {
+    public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, String pos) {
         Log.d(TAG, "saveDocument");
         System.out.println("ESTOY AQUIIIIIIIIIIIIIIII");
-        db.collection("notaCards").document().delete(); //PARA ELIMINAR LA NOTA TENEMOS QUE ELEMINAR EL DOCUMENTO(SOLO FALTA SABER CUAL ES
+        int position3 = Integer.parseInt(pos);
+        position3++;
+        position = String.valueOf(position3);
+        //position = pos;
+        //System.out.println("EOOOOO" + db.collection("notaCards").document(idNotes.get(tempPos)));
+        System.out.println(position + " positiioo 1");
+        db.collection("notaCards").document(position/*idNotes.get(tempPos)*/)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                }); //PARA ELIMINAR LA NOTA TENEMOS QUE ELEMINAR EL DOCUMENTO(SOLO FALTA SABER CUAL ES
         //SU ID DEL FIREBASE, EJEMPLO --> D/DatabaseAdapter: 5at0Dihc0VI0GVMZTANX ESTE ES EL ID => {owner=, noteId=02bd75cb-13ca-49ac-b52c-6d76205be6fc, contingut= , title=gggg}
         //deleteNotaOfCollection(nota);
     }

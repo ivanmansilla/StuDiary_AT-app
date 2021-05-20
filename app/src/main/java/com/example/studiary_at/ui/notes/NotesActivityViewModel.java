@@ -55,7 +55,7 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         //Inform observer
         mNotaCards.setValue(mNotaCards.getValue());
         setCollection(mNotaCards.getValue());
-        nc.deleteCard(mNotaCards.getValue()); //Falta eliminar la nota a nivel de firebase, que se actualize con la nota eliminada
+        nc.deleteCard(mNotaCards.getValue(), position); //Falta eliminar la nota a nivel de firebase, que se actualize con la nota eliminada
 
     }
 

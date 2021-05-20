@@ -53,8 +53,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
     private NotesActivityViewModel viewModel;
     private RecyclerView mRecyclerView;
     private NotaCard notaCard;
-    private String titol, contingut;
-
+    private String titol, contingut, position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
