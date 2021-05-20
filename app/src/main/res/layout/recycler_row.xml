@@ -43,7 +43,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="start|center_vertical"
-            android:text="@string/title" />
+            android:text="@string/title"
+            android:textColor="#1D0D67"
+            android:textSize="24sp" />
 
     </LinearLayout>
 

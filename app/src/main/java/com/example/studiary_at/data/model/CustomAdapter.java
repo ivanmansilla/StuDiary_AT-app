@@ -80,7 +80,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
     private void openNote(int position) {
-        // Play audio for clicked note
         //listener.startPlaying(position);
         listener.editNote(position);
         // Que se nos abra la nota para poder editarla (o solo verla)

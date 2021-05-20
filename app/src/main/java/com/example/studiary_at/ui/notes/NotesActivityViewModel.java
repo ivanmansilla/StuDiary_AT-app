@@ -32,7 +32,6 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
     public NotaCard getNotaCard(int idx){
         return mNotaCards.getValue().get(idx);
     }
-    //Este metodo el getNotaCard nose si lo tendremos que usar, alomejor sera para cuando le demos a afegir nota que te las muestre, but idk
 
     public void addNotaCard(String titol, String contingut, String owner, String data){
         NotaCard nc = new NotaCard(titol, contingut, owner, data);
@@ -40,6 +39,14 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         // Inform observer.
         mNotaCards.setValue(mNotaCards.getValue());
         nc.saveCard();
+    }
+
+    public void editNotaCard(String title, String contingut, int position) {
+        mNotaCards.getValue().get(position).setContingut(contingut);
+        mNotaCards.getValue().get(position).setTitol(title);
+        mNotaCards.setValue(mNotaCards.getValue());
+        //TODO --> que se edite tambien en firebase (nc.saveCard() o por el estilo)
+
     }
 
     public void deleteNotaCard(int position){
@@ -51,6 +58,7 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         nc.deleteCard(mNotaCards.getValue()); //Falta eliminar la nota a nivel de firebase, que se actualize con la nota eliminada
 
     }
+
 
 
     public LiveData<String> getToast(){
@@ -66,4 +74,6 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
     public void setToast(String s) {
         mToast.setValue(s);
     }
+
+
 }

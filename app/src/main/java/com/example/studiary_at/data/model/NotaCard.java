@@ -8,14 +8,14 @@ import java.util.UUID;
 
 public class NotaCard {
 
-    private String noteId, contingut;
-    private final String titol, owner, data;
+    private String noteId, contingut, titol;
+    private final String owner, data;
     private final FireBaseAdapter adapter = FireBaseAdapter.firebaseAdapter;
     public boolean updat = false;
 
-    public NotaCard(String description, String contingut, String owner, String date) { //DE alguna forma tendremos que darle la data, y cuando
+    public NotaCard(String titol, String contingut, String owner, String date) { //DE alguna forma tendremos que darle la data, y cuando
         //this.noteId = id;                                               //se muestren las notas, que mire la data y sean solo de esa data
-        this.titol = description;
+        this.titol = titol;
         this.owner = owner;
         this.contingut = contingut;
         this.data = date;
@@ -35,6 +35,8 @@ public class NotaCard {
     public void setContingut(String contingut) {
         this.contingut = contingut;
     }
+
+    public void setTitol(String titol){this.titol = titol;}
 
     public void saveCard() {
         Log.d("saveCard", "saveCard-> saveDocument");

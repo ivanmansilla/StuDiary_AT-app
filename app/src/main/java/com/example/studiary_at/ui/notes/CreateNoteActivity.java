@@ -61,7 +61,7 @@ public class CreateNoteActivity extends AppCompatActivity{
     private void saveNote() {
         contingut = contingutText.getText().toString();
         notaCard.setContingut(contingut);
-        //TODO --> viewModel.editNota(title, contingut, position);
+        viewModel.editNotaCard(title, contingut, position);
         finish();
 
     }

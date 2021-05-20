@@ -139,6 +139,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
         intent.putExtra("titol", title);
         intent.putExtra("position", nPosition);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getApplicationContext().startActivity(intent);
 
     }
