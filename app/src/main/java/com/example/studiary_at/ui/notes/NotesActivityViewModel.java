@@ -67,7 +67,7 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         nc.setTitol(title);
 
         mNotaCards.setValue(mNotaCards.getValue());
-
+        nc.updateCard(position);
         //nc.saveCard();
         //TODO --> que se edite tambien en firebase (nc.saveCard() o por el estilo)
 
@@ -82,8 +82,6 @@ public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapte
         nc.deleteCard(mNotaCards.getValue(), position); //Falta eliminar la nota a nivel de firebase, que se actualize con la nota eliminada
 
     }
-
-
 
     public LiveData<String> getToast(){
         return mToast;

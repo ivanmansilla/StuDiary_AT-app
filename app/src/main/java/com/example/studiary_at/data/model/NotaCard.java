@@ -48,11 +48,16 @@ public class NotaCard {
     }
 
     public void deleteCard(ArrayList<NotaCard> nota, int pos){
-        //TODO --> Implementar metodo al fb adapter para eliminar una nota
         Log.d("deleteCard", "deleteCard-> deleteDocument");
-        //adapter.deleteNotaOfCollection(nota);
         position = pos;
         adapter.deleteDocument(this, nota, position);
+
+    }
+
+    public void updateCard(int pos){
+        Log.d("updateCard", "updateCard-> updateDocument");
+        position = pos;
+        adapter.updateDocument(position, this.noteId, this.titol, this.owner, this.contingut, this.data);
 
     }
 

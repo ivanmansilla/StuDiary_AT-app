@@ -42,12 +42,14 @@ public class FireBaseAdapter {
     private FirebaseUser user;
     private int size;
     private String position, position2;
+    int temp=0;
 
 
     public static vmInterface listener;
     public static FireBaseAdapter firebaseAdapter;
 
     public FireBaseAdapter(vmInterface listener){
+        size = 0;
         this.listener = listener;
         firebaseAdapter = this;
         FirebaseFirestore.setLoggingEnabled(true);
@@ -76,6 +78,7 @@ public class FireBaseAdapter {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
                                 .getString("data")));
+                                size++;
                             }
                             listener.setCollection(retrieved_ac);
 
@@ -85,6 +88,7 @@ public class FireBaseAdapter {
                     }
                 });
     }
+    //show collections() igual pero solo si es de la  misma fecha
 
     public void deleteNotaOfCollection(ArrayList<NotaCard> nota) {
         Log.d(TAG,"updatenotaCards");
@@ -118,7 +122,7 @@ public class FireBaseAdapter {
                 });
     }
 
-    public void saveDocument (String noteId, String title, String owner, String contingut, String data) {
+    public void saveDocument(String noteId, String title, String owner, String contingut, String data) {
         System.out.println("saveDOCument 1");
         Map<String, Object> note = new HashMap<>();
         note.put("noteId", noteId);
@@ -126,11 +130,12 @@ public class FireBaseAdapter {
         note.put("owner", owner);
         note.put("contingut", contingut);
         note.put("data", data);
+        System.out.println("SIZE OF SAVE " + size);
         int pos = size+1;
         position2 = String.valueOf(pos);
         //note.put("position", position2);
         Log.d(TAG, "saveDocument");
-        System.out.println(position2 + " positiioo 2");
+        System.out.println(position2 + " Position in save document");
         db.collection("notaCards").document(position2).set(note);
         size++;
         // Add a new document with a generated ID
@@ -155,19 +160,20 @@ public class FireBaseAdapter {
                 });*/
     }
     public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, int pos) {
-        Log.d(TAG, "saveDocument");
+        Log.d(TAG, "deleteDocument");
         System.out.println("ESTOY AQUIIIIIIIIIIIIIIII");
         pos++;
         position = String.valueOf(pos);
         //position = pos;
         //System.out.println("EOOOOO" + db.collection("notaCards").document(idNotes.get(tempPos)));
-        System.out.println(position + " positiioo 1");
+        System.out.println(position + " Position of Delete");
         db.collection("notaCards").document(position/*idNotes.get(tempPos)*/)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        size--;
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -175,9 +181,32 @@ public class FireBaseAdapter {
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error deleting document", e);
                     }
-                }); //PARA ELIMINAR LA NOTA TENEMOS QUE ELEMINAR EL DOCUMENTO(SOLO FALTA SABER CUAL ES
-        //SU ID DEL FIREBASE, EJEMPLO --> D/DatabaseAdapter: 5at0Dihc0VI0GVMZTANX ESTE ES EL ID => {owner=, noteId=02bd75cb-13ca-49ac-b52c-6d76205be6fc, contingut= , title=gggg}
-        //deleteNotaOfCollection(nota);
+                });
+    }
+    public void updateDocument(int pos, String noteId, String title, String owner, String contingut, String data) {
+        Log.d(TAG, "updateDocument");
+        pos++;
+        position = String.valueOf(pos);
+        System.out.println(position + " Position of update ");
+        //if (temp == 0){
+            System.out.println(position + " Dintre temp ");
+            db.collection("notaCards").document(position).delete();
+            size--;
+          //  temp++;
+        //}
+        //db.collection("notaCards").document(position).delete();
+        Map<String, Object> note = new HashMap<>();
+        note.put("noteId", noteId);
+        note.put("title", title);
+        note.put("owner", owner);
+        note.put("contingut", contingut);
+        note.put("data", data);
+        System.out.println("SIZE " + size);
+        //note.put("position", position2);
+        Log.d(TAG, "saveDocument");
+        System.out.println(position + " Position save/update document");
+        db.collection("notaCards").document(position).set(note);
+        size++;
     }
 
 
