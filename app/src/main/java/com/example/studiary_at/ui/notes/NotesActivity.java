@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.studiary_at.R;
 import com.example.studiary_at.data.model.CustomAdapter;
+import com.example.studiary_at.data.model.FireBaseAdapter;
 import com.example.studiary_at.data.model.NotaCard;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -48,12 +49,14 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
     static ArrayAdapter arrayAdapter;
     private FloatingActionButton addNote_btn;
     //private Date data;
-    private String stData;
+    public String stData, data2;
     private TextView data;
     private NotesActivityViewModel viewModel;
     private RecyclerView mRecyclerView;
     private NotaCard notaCard;
     private String titol, contingut, position;
+    private static NotesActivity uniqueInstance;
+    private FireBaseAdapter fireBaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,8 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         mActivity = this;
 
 
+        //fireBaseAdapter = fireBaseAdapter.getInstance();  falta listener viewmodel
+
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -70,10 +75,11 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
 
         addNote_btn = findViewById(R.id.add_note_button_notes);
         data = findViewById(R.id.dataView);
-
         Intent intent = getIntent();
         stData = intent.getStringExtra("data");
         data.setText(stData);
+        setData(stData);
+        fireBaseAdapter.showCollection(stData);
 
 
         addNote_btn.setOnClickListener(new View.OnClickListener() {
@@ -84,8 +90,19 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         });
 
     }
-
-
+    public static NotesActivity getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new NotesActivity();
+        }
+        return uniqueInstance;
+    }
+    public void showColl(FireBaseAdapter fba){
+        System.out.println("Detaaaa " + stData);
+        fba.showCollection(stData);
+    }
+    public void setData(String data){
+        data2 = data;
+    }
 
     public void setLiveDataObservers() {
         //Subscribe the activity to the observable
@@ -111,6 +128,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
 
         viewModel.getNotaCards().observe(this, observer);
         viewModel.getToast().observe(this, observerToast);
+
 
     }
 

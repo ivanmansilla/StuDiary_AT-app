@@ -1,5 +1,7 @@
 package com.example.studiary_at.ui.notes;
 
+import android.content.Intent;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -11,30 +13,35 @@ import com.example.studiary_at.data.model.NotaCard;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class NotesActivityViewModel  extends ViewModel implements FireBaseAdapter.vmInterface {
+import static android.content.Intent.getIntent;
+
+public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter.vmInterface {
 
     private final MutableLiveData<ArrayList<NotaCard>> mNotaCards;
     private final MutableLiveData<String> mToast;
     public static final String TAG = "ViewModel";
     private static NotesActivityViewModel uniqueInstance;
+    private String data;
+    private NotesActivity notesActivity;
+    private FireBaseAdapter fireBaseAdapter;
 
     public NotesActivityViewModel(){
         System.out.println("HOLA SOY EL CONSTRUCTOR DE NOTESACTIVITYVIEWMODEL");
         mNotaCards = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
-        FireBaseAdapter fa = new FireBaseAdapter(this); //creo que habra que hacer un singleton aqui
-        setCollection(mNotaCards.getValue());
-        fa.getCollection();
+        //FireBaseAdapter fa = new FireBaseAdapter(this); //creo que habra que hacer un singleton aqui
+        fireBaseAdapter = fireBaseAdapter.getInstance(this);
 
+        setCollection(mNotaCards.getValue());
+        notesActivity = notesActivity.getInstance();
+        notesActivity.showColl(fireBaseAdapter);
+        //fa.showCollection(notesActivity.getData());
     }
 
     public static NotesActivityViewModel getInstance() {
-        /*if (uniqueInstance == null) {
-            uniqueInstance = new ViewModelProvider(NotesActivity).get(NotesActivityViewModel.class);
-        }*/
+
         return uniqueInstance;
     }
-
 
     public void setInstance(NotesActivityViewModel viewModel) {
         uniqueInstance = viewModel;

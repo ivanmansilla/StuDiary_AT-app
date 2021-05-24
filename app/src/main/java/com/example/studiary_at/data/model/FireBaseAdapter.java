@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.studiary_at.ui.notes.NotesActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -40,6 +41,7 @@ public class FireBaseAdapter {
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user;
+    private static FireBaseAdapter uniqueInstance2;
     private int size;
     private String position, position2;
     int temp=0;
@@ -54,6 +56,12 @@ public class FireBaseAdapter {
         firebaseAdapter = this;
         FirebaseFirestore.setLoggingEnabled(true);
         initFirebase();
+    }
+    public static FireBaseAdapter getInstance(vmInterface listen) {
+        if (uniqueInstance2 == null) {
+            uniqueInstance2 = new FireBaseAdapter(listen);
+        }
+        return uniqueInstance2;
     }
 
     public interface vmInterface{
@@ -88,7 +96,32 @@ public class FireBaseAdapter {
                     }
                 });
     }
-    //show collections() igual pero solo si es de la  misma fecha
+    public void showCollection(String stData) {// igual pero solo si es de la  misma fecha
+        Log.d(TAG,"updatenotaCards");
+        FireBaseAdapter.db.collection("notaCards")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                System.out.println(stData + " HOOOOLA BRO " + document.getString("data"));
+                                if(stData == document.getString("data")){
+                                    retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
+                                            .getString("data")));
+                                }
+                                size++;
+                            }
+                            listener.setCollection(retrieved_ac);
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 
     public void deleteNotaOfCollection(ArrayList<NotaCard> nota) {
         Log.d(TAG,"updatenotaCards");
