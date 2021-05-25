@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,8 @@ public class PerfilFragment extends Fragment{
     private Button signOut_button;
     private FirebaseAuth mAuth;
     private TextView mail;
+    private TextView nom;
+    private TextView number;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,11 +45,21 @@ public class PerfilFragment extends Fragment{
         });
 
         mail = (TextView) root.findViewById(R.id.mailperfil);
+        nom = (TextView) root.findViewById(R.id.nomPerfil);
+        number = (TextView) root.findViewById(R.id.numberPerfil);
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        String emailuser;
+        String emailuser,nomUser,numberUser;
+
         emailuser = user.getEmail();
+        nomUser = user.getUid();
+        numberUser = user.getPhoneNumber();
+
         mail.setText(emailuser, TextView.BufferType.EDITABLE);
+        nom.setText(nomUser,TextView.BufferType.EDITABLE);
+        number.setText(numberUser,TextView.BufferType.EDITABLE);
+
         signOut_button = (Button) root.findViewById(R.id.sign_out_button);
         signOut_button.setOnClickListener(new View.OnClickListener()
         {
