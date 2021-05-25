@@ -79,7 +79,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         stData = intent.getStringExtra("data");
         data.setText(stData);
         setData(stData);
-        fireBaseAdapter.showCollection(stData);
+        //fireBaseAdapter.showCollection(stData);
 
 
         addNote_btn.setOnClickListener(new View.OnClickListener() {

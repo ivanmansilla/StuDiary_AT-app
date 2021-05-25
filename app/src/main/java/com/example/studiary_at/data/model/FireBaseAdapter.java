@@ -200,21 +200,18 @@ public class FireBaseAdapter {
         //position = pos;
         //System.out.println("EOOOOO" + db.collection("notaCards").document(idNotes.get(tempPos)));
         System.out.println(position + " Position of Delete");
-        db.collection("notaCards").document(position/*idNotes.get(tempPos)*/)
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                        size--;
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document", e);
-                    }
-                });
+        if(size == 1){
+            db.collection("notaCards").document("1")
+                    .delete(); //Arreglar que se reste uno el id, o el owner que sea el id y eliminar ese id, no la pos
+        }else {
+            db.collection("notaCards").document(position/*idNotes.get(tempPos)*/)
+                    .delete();
+        }
+        /*for (int i = 0; i < size; i++) {
+            delete y save, igual que el updtate, pero con el nuevo id
+            b.collection("notaCards").document("i").delete();
+        }*/
+        size--;
     }
     public void updateDocument(int pos, String noteId, String title, String owner, String contingut, String data) {
         Log.d(TAG, "updateDocument");
