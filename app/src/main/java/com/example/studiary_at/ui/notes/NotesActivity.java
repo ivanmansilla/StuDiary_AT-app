@@ -90,16 +90,17 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         });
 
     }
+
     public static NotesActivity getInstance() {
         if (uniqueInstance == null) {
             uniqueInstance = new NotesActivity();
         }
         return uniqueInstance;
     }
-    public void showColl(FireBaseAdapter fba){
+    /*public void showColl(FireBaseAdapter fba){
         System.out.println("Detaaaa " + stData);
         fba.showCollection(stData);
-    }
+    }*/
     public void setData(String data){
         data2 = data;
     }
@@ -108,6 +109,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         //Subscribe the activity to the observable
         viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class);
         viewModel.setInstance(viewModel);
+        viewModel.setData(stData);
 
         final Observer<ArrayList<NotaCard>> observer = new Observer<ArrayList<NotaCard>>() {
             @Override

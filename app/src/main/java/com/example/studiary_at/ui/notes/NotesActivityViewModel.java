@@ -1,19 +1,13 @@
 package com.example.studiary_at.ui.notes;
 
-import android.content.Intent;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.studiary_at.data.model.FireBaseAdapter;
 import com.example.studiary_at.data.model.NotaCard;
 
 import java.util.ArrayList;
-import java.util.Date;
-
-import static android.content.Intent.getIntent;
 
 public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter.vmInterface {
 
@@ -31,12 +25,19 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
         mToast = new MutableLiveData<>();
         FireBaseAdapter fa = new FireBaseAdapter(this); //creo que habra que hacer un singleton aqui
         //fireBaseAdapter = fireBaseAdapter.getInstance(this);
-
         setCollection(mNotaCards.getValue());
         //notesActivity = notesActivity.getInstance();
-        fa.getCollection();
+        fa.showCollection();//Collection();
         //notesActivity.showColl(fireBaseAdapter);
         //fa.showCollection(notesActivity.getData());
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
     public static NotesActivityViewModel getInstance() {
@@ -104,6 +105,5 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
     public void setToast(String s) {
         mToast.setValue(s);
     }
-
 
 }

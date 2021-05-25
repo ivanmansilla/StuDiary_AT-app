@@ -3,9 +3,13 @@ package com.example.studiary_at.data.model;
 //import com.google.auth.oauth2.GoogleCredentials;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.widget.CalendarView;
 
 import androidx.annotation.NonNull;
 
+import com.example.studiary_at.R;
+import com.example.studiary_at.ui.calendar.CalendarFragment;
 import com.example.studiary_at.ui.notes.NotesActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -96,7 +100,8 @@ public class FireBaseAdapter {
                     }
                 });
     }
-    public void showCollection(String stData) {// igual pero solo si es de la  misma fecha
+    public void showCollection() {// igual pero solo si es de la  misma fecha
+        String stData2 = "25/05/2021";
         Log.d(TAG,"updatenotaCards");
         FireBaseAdapter.db.collection("notaCards")
                 .get()
@@ -107,10 +112,12 @@ public class FireBaseAdapter {
                             ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                System.out.println(stData + " HOOOOLA BRO " + document.getString("data"));
-                                if(stData == document.getString("data")){
+                                System.out.println(stData2 + " es igual o no a " + document.getString("data"));
+                                if(stData2 == document.getString("data")){
                                     retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
                                             .getString("data")));
+                                }else{
+                                    System.out.println("ERRRROR");
                                 }
                                 size++;
                             }
