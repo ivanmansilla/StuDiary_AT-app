@@ -109,6 +109,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         viewModel.setData(stData);
         viewModel.update();
 
+
         final Observer<ArrayList<NotaCard>> observer = new Observer<ArrayList<NotaCard>>() {
             @Override
             public void onChanged(ArrayList<NotaCard> nc) {
@@ -128,6 +129,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
 
         viewModel.getNotaCards().observe(this, observer);
         viewModel.getToast().observe(this, observerToast);
+
 
 
     }

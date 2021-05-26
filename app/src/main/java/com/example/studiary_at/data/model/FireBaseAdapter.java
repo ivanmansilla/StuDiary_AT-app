@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -100,9 +101,10 @@ public class FireBaseAdapter {
                 });
     }
     public void showCollection(String stData) {// igual pero solo si es de la  misma fecha
-        String stData2 = stData;
+        System.out.println("La dara es : "  + stData);
         Log.d(TAG,"updatenotaCards");
         FireBaseAdapter.db.collection("notaCards")
+                .whereEqualTo("data", stData)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -111,22 +113,23 @@ public class FireBaseAdapter {
                             ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                System.out.println(stData2 + " es igual o no a " + document.getString("data"));
-                                if(stData2.equals(document.getString("data"))){
-                                    retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
-                                            .getString("data")));
-                                }else{
-                                    System.out.println("ERRRROR");
-                                }
+                                System.out.println(document.getString("data") + " eoooo");
+                                retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
+                                        .getString("data")));
                                 size++;
+                                for(NotaCard nc :retrieved_ac){
+                                    System.out.println(nc.getTitol() + "oooee");  //Funciona, siemore coge el titulo
+                                }                                                   // Pero solo aparece la primera vez que le das a afegir nota,
+                                                                                   //la segunda aunque la coja, no aparece
                             }
                             listener.setCollection(retrieved_ac);
-
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
+        System.out.println("SHOW COLLECTIONS FINISHS");
+
     }
 
 
