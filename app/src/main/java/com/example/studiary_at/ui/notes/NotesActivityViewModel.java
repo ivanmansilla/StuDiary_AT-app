@@ -23,11 +23,11 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
         System.out.println("HOLA SOY EL CONSTRUCTOR DE NOTESACTIVITYVIEWMODEL");
         mNotaCards = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
-        FireBaseAdapter fa = new FireBaseAdapter(this); //creo que habra que hacer un singleton aqui
-        //fireBaseAdapter = fireBaseAdapter.getInstance(this);
+        //FireBaseAdapter fa = new FireBaseAdapter(this);
+        fireBaseAdapter = fireBaseAdapter.getInstance(this);
         setCollection(mNotaCards.getValue());
         //notesActivity = notesActivity.getInstance();
-        fa.showCollection();//Collection();
+        //Collection();
         //notesActivity.showColl(fireBaseAdapter);
         //fa.showCollection(notesActivity.getData());
     }
@@ -38,6 +38,11 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public void update(){
+        System.out.println("PEPE VIYUELA " + getData());
+        fireBaseAdapter.showCollection(getData());
     }
 
     public static NotesActivityViewModel getInstance() {
@@ -78,7 +83,7 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
         mNotaCards.setValue(mNotaCards.getValue());
         nc.updateCard(position);
         //nc.saveCard();
-        //TODO --> que se edite tambien en firebase (nc.saveCard() o por el estilo)
+
 
     }
 

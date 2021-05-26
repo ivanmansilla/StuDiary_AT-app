@@ -93,15 +93,14 @@ public class FireBaseAdapter {
                                 size++;
                             }
                             listener.setCollection(retrieved_ac);
-
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
     }
-    public void showCollection() {// igual pero solo si es de la  misma fecha
-        String stData2 = "25/05/2021";
+    public void showCollection(String stData) {// igual pero solo si es de la  misma fecha
+        String stData2 = stData;
         Log.d(TAG,"updatenotaCards");
         FireBaseAdapter.db.collection("notaCards")
                 .get()
@@ -113,7 +112,7 @@ public class FireBaseAdapter {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 System.out.println(stData2 + " es igual o no a " + document.getString("data"));
-                                if(stData2 == document.getString("data")){
+                                if(stData2.equals(document.getString("data"))){
                                     retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
                                             .getString("data")));
                                 }else{
@@ -130,37 +129,6 @@ public class FireBaseAdapter {
                 });
     }
 
-    public void deleteNotaOfCollection(ArrayList<NotaCard> nota) {
-        Log.d(TAG,"updatenotaCards");
-        FireBaseAdapter.db.collection("notaCards")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
-
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                /*retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document.getString("data")));
-                                for(NotaCard nc : retrieved_ac){
-                                    if(nc.getTitol().equals(nota.getTitol())){
-                                        retrieved_ac.remove(nc);
-                                    }
-                                }*/
-                                retrieved_ac = nota;
-                            }
-                            for(NotaCard nota2 : retrieved_ac){
-                                System.out.println("NOTA2");
-                                System.out.println(nota2);
-                            }
-                            listener.setCollection(retrieved_ac);
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
 
     public void saveDocument(String noteId, String title, String owner, String contingut, String data) {
         System.out.println("saveDOCument 1");
@@ -178,26 +146,7 @@ public class FireBaseAdapter {
         System.out.println(position2 + " Position in save document");
         db.collection("notaCards").document(position2).set(note);
         size++;
-        // Add a new document with a generated ID
-        /*db.collection("notaCards")
-                .add(note)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        System.out.println("saveDOCument 3");
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        idNotes.add(documentReference.getId());
-                        System.out.println("saveDOCument 4");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.out.println("saveDOCument 5");
-                        Log.w(TAG, "Error adding document", e);
-                        System.out.println("saveDOCument 6");
-                    }
-                });*/
+
     }
     public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, int pos) {
         Log.d(TAG, "deleteDocument");
@@ -211,12 +160,26 @@ public class FireBaseAdapter {
             db.collection("notaCards").document("1")
                     .delete(); //Arreglar que se reste uno el id, o el owner que sea el id y eliminar ese id, no la pos
         }else {
-            db.collection("notaCards").document(position/*idNotes.get(tempPos)*/)
+            db.collection("notaCards").document(position)
                     .delete();
         }
-        /*for (int i = 0; i < size; i++) {
+        /*for (int i = pos; i < size; i++) {
             delete y save, igual que el updtate, pero con el nuevo id
-            b.collection("notaCards").document("i").delete();
+            position = String.valueOf(pos);
+            b.collection("notaCards").document(position).delete();
+            size--;
+            Map<String, Object> note = new HashMap<>();
+            note.put("noteId", noteId);
+            note.put("title", title);
+            note.put("owner", owner);
+            note.put("contingut", contingut);
+            note.put("data", data);
+            System.out.println("SIZE " + size);
+            //note.put("position", position2);
+            Log.d(TAG, "saveDocument");
+            System.out.println(position + " Position save/update document");
+            db.collection("notaCards").document(position).set(note);
+            size++;
         }*/
         size--;
     }
@@ -227,6 +190,7 @@ public class FireBaseAdapter {
         System.out.println(position + " Position of update ");
         //if (temp == 0){
             System.out.println(position + " Dintre temp ");
+
             db.collection("notaCards").document(position).delete();
             size--;
           //  temp++;
@@ -244,6 +208,7 @@ public class FireBaseAdapter {
         System.out.println(position + " Position save/update document");
         db.collection("notaCards").document(position).set(note);
         size++;
+       // db.collection("notaCards").document("1").update(note);
     }
 
 

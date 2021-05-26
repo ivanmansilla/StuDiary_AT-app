@@ -71,14 +71,14 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        setLiveDataObservers();
-
         addNote_btn = findViewById(R.id.add_note_button_notes);
         data = findViewById(R.id.dataView);
         Intent intent = getIntent();
         stData = intent.getStringExtra("data");
         data.setText(stData);
-        setData(stData);
+        //setData(stData);
+
+        setLiveDataObservers();
         //fireBaseAdapter.showCollection(stData);
 
 
@@ -101,15 +101,13 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         System.out.println("Detaaaa " + stData);
         fba.showCollection(stData);
     }*/
-    public void setData(String data){
-        data2 = data;
-    }
 
     public void setLiveDataObservers() {
         //Subscribe the activity to the observable
         viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class);
         viewModel.setInstance(viewModel);
         viewModel.setData(stData);
+        viewModel.update();
 
         final Observer<ArrayList<NotaCard>> observer = new Observer<ArrayList<NotaCard>>() {
             @Override
