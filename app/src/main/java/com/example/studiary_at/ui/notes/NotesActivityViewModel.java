@@ -25,7 +25,10 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
         mToast = new MutableLiveData<>();
         //FireBaseAdapter fa = new FireBaseAdapter(this);
         fireBaseAdapter = fireBaseAdapter.getInstance(this);
-        setCollection(mNotaCards.getValue());
+        setCollection(mNotaCards.getValue());  //L'error es cuando sales de afegir nota y vuelves a entrar no aparece, por tanto al hacer addnota
+                                            //no puede poenr la nueva nota (ja que esta parece que este vacia pero no)
+                                            //Parece que el error fuera el setcollection pero no, puede ser que sea el view model o no.. seguir
+                                            //buscando, problema es que no aparece cuando le das para atras y para alante, pero si lo coge bien
         //notesActivity = notesActivity.getInstance();
         //Collection();
         //notesActivity.showColl(fireBaseAdapter);
@@ -42,6 +45,7 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
 
     public void update(){
         System.out.println("PEPE VIYUELA " + getData());
+        setCollection(mNotaCards.getValue());
         fireBaseAdapter.showCollection(getData());
     }
 
@@ -66,6 +70,7 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
         mNotaCards.getValue().add(nc);
         // Inform observer.
         mNotaCards.setValue(mNotaCards.getValue());
+        setCollection(mNotaCards.getValue());
         nc.saveCard();
     }
 
