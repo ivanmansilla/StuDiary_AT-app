@@ -81,10 +81,10 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         setLiveDataObservers();
         //fireBaseAdapter.showCollection(stData);
 
-
         addNote_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println(viewModel + "recyyyycler");
                 addNote(mRecyclerView);
             }
         });
@@ -104,8 +104,9 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
 
     public void setLiveDataObservers() {
         //Subscribe the activity to the observable
-        viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class);
-        viewModel.setInstance(viewModel);
+        viewModel = viewModel.getInstance();
+       // viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class); //El error esta aqui
+       // viewMo//del.setInstance(viewModel);
         viewModel.setData(stData);
         viewModel.update();
 
@@ -147,6 +148,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         saveButton.setOnClickListener((v) -> {
             String title = saveDescr.getEditText().getText().toString();
             contingut = " ";
+            System.out.println(viewModel + "REcyclerrrrr");
             viewModel.addNotaCard(title, contingut, "", stData);
             popupWindow.dismiss();
         });

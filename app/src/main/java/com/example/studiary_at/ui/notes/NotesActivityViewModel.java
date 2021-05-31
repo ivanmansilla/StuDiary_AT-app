@@ -25,10 +25,13 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
         mToast = new MutableLiveData<>();
         //FireBaseAdapter fa = new FireBaseAdapter(this);
         fireBaseAdapter = fireBaseAdapter.getInstance(this);
-        setCollection(mNotaCards.getValue());  //L'error es cuando sales de afegir nota y vuelves a entrar no aparece, por tanto al hacer addnota
+        //setCollection(mNotaCards.getValue());  //L'error es cuando sales de afegir nota y vuelves a entrar no aparece, por tanto al hacer addnota
                                             //no puede poenr la nueva nota (ja que esta parece que este vacia pero no)
                                             //Parece que el error fuera el setcollection pero no, puede ser que sea el view model o no.. seguir
                                             //buscando, problema es que no aparece cuando le das para atras y para alante, pero si lo coge bien
+                                            //update: problema creo que es el viewmodel, no hace bien el getinstance
+                                            //uodate: viewModel get instance arreglado, ahora mNotacards/setCollection es el que hace que on se guarde
+                                            //update: el errror esta en el show collections hace el set de una lista vacia ya que no hace bien lo de la fecha
         //notesActivity = notesActivity.getInstance();
         //Collection();
         //notesActivity.showColl(fireBaseAdapter);
@@ -45,11 +48,14 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
 
     public void update(){
         System.out.println("PEPE VIYUELA " + getData());
-        setCollection(mNotaCards.getValue());
+        //setCollection(mNotaCards.getValue());
         fireBaseAdapter.showCollection(getData());
     }
 
     public static NotesActivityViewModel getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new NotesActivityViewModel();
+        }
 
         return uniqueInstance;
     }
@@ -66,10 +72,14 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
     }
 
     public void addNotaCard(String titol, String contingut, String owner, String data){
+        System.out.println(mNotaCards + "notacartasss");
         NotaCard nc = new NotaCard(titol, contingut, owner, data);
         mNotaCards.getValue().add(nc);
         // Inform observer.
-        mNotaCards.setValue(mNotaCards.getValue());
+        for(NotaCard ne : mNotaCards.getValue()){
+            System.out.println(ne.getTitol() + "siuuuu");
+        }
+        //mNotaCards.setValue(mNotaCards.getValue());
         setCollection(mNotaCards.getValue());
         nc.saveCard();
     }
@@ -96,7 +106,7 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
         NotaCard nc = mNotaCards.getValue().get(position);
         mNotaCards.getValue().remove(nc);
         //Inform observer
-        mNotaCards.setValue(mNotaCards.getValue());
+        //mNotaCards.setValue(mNotaCards.getValue());
         setCollection(mNotaCards.getValue());
         nc.deleteCard(mNotaCards.getValue(), position);
 
