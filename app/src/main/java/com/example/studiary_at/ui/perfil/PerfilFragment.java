@@ -67,8 +67,6 @@ public class PerfilFragment extends Fragment{
             public void onClick(View v)
             {
                 mAuth.signOut();
-                //Intent siguiente = new Intent(PerfilFragment.this.getActivity(), LoginActivity.class);
-                //startActivity(siguiente);
                 getActivity().finish();
             }
         });

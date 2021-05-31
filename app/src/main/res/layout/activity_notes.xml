@@ -11,7 +11,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="302dp"
         android:layout_height="495dp"
-        android:background="#91BBED"
+        android:background="#94DAEF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

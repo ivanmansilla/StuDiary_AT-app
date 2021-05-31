@@ -65,4 +65,6 @@
     <string name="title">title</string>
     <string name="titulo_de_la_nota">Titulo de la nota</string>
     <string name="guardar_nota">Guardar nota</string>
+    <string name="numero_de_telefon">NUMERO DE TELEFON</string>
+    <string name="nom2">NOM</string>
 </resources>

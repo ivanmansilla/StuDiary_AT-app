@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button register_button;
     private String email, password;
-    public boolean signOut = false;
     private static final String TAG = "Login";
 
     protected void onCreate(Bundle savedInstanceState){
