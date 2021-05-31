@@ -19,6 +19,8 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import com.example.studiary_at.LoginActivity;
 import com.example.studiary_at.MainActivity;
 import com.example.studiary_at.R;
+import com.example.studiary_at.data.model.FireBaseAdapter;
+import com.example.studiary_at.data.model.NotaCard;
 import com.example.studiary_at.ui.settings.SettingsViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,6 +46,7 @@ public class PerfilFragment extends Fragment{
 
         });
 
+
         mail = (TextView) root.findViewById(R.id.mailperfil);
         nom = (TextView) root.findViewById(R.id.nomPerfil);
         number = (TextView) root.findViewById(R.id.numberPerfil);
@@ -53,7 +56,7 @@ public class PerfilFragment extends Fragment{
         String emailuser,nomUser,numberUser;
 
         emailuser = user.getEmail();
-        nomUser = user.getUid();
+        nomUser = user.getDisplayName();
         numberUser = user.getPhoneNumber();
 
         mail.setText(emailuser, TextView.BufferType.EDITABLE);

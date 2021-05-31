@@ -67,4 +67,5 @@
     <string name="guardar_nota">Guardar nota</string>
     <string name="numero_de_telefon">NUMERO DE TELEFON</string>
     <string name="nom2">NOM</string>
+    <string name="play_button_description">play_button_description</string>
 </resources>

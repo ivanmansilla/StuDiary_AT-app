@@ -29,6 +29,8 @@ public class NotaCard {
 
     public String getContingut() { return contingut; }
 
+    public String getUserName(){return owner;}
+
     public int getPosition(){ return position;}
 
     public String getNoteId() {
