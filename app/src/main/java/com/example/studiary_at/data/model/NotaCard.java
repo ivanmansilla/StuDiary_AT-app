@@ -25,6 +25,15 @@ public class NotaCard {
         this.noteId = uuid.toString();
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+
     public String getTitol() { return titol; }
 
     public String getContingut() { return contingut; }
@@ -36,6 +45,7 @@ public class NotaCard {
     public String getNoteId() {
         return noteId;
     }
+
     public void setNoteId(String noteId) { this.noteId = noteId; }
 
     public void setContingut(String contingut) {

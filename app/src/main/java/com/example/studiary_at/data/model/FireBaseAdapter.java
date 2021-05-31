@@ -44,7 +44,7 @@ public class FireBaseAdapter {
     private static FireBaseAdapter uniqueInstance2;
     private int size;
     private String position, position2;
-    int temp=0;
+    private ArrayList<NotaCard> notas;
 
 
     public static vmInterface listener;
@@ -56,6 +56,7 @@ public class FireBaseAdapter {
         firebaseAdapter = this;
         FirebaseFirestore.setLoggingEnabled(true);
         initFirebase();
+        notas = new ArrayList<NotaCard>();
     }
     public static FireBaseAdapter getInstance(vmInterface listen) {
         if (uniqueInstance2 == null) {
@@ -112,12 +113,17 @@ public class FireBaseAdapter {
                                     System.out.println("DENTRO IF");
                                     retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
                                             .getString("data")));
+                                    //notas.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
+                                      //      .getString("data")));
+                                    setNotas(retrieved_ac);
                                 //}
-                                size++;
 
                             }
                             for(NotaCard no : retrieved_ac){
                                 System.out.println(no.getTitol() + "uiiiiissss");
+                            }
+                            for(NotaCard no : getNotas()){
+                                System.out.println(no.getTitol() + "uiiiiissss222");
                             }
                             listener.setCollection(retrieved_ac);
 
@@ -128,36 +134,36 @@ public class FireBaseAdapter {
                 });
     }
 
-    public void deleteNotaOfCollection(ArrayList<NotaCard> nota) {
-        Log.d(TAG,"updatenotaCards");
+    public ArrayList<NotaCard> deleteNotaOfCollection() {
+        final ArrayList<NotaCard>[] temp = new ArrayList[]{new ArrayList<NotaCard>()};
         FireBaseAdapter.db.collection("notaCards")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
                         if (task.isSuccessful()) {
-                            ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
-
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                /*retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document.getString("data")));
-                                for(NotaCard nc : retrieved_ac){
-                                    if(nc.getTitol().equals(nota.getTitol())){
-                                        retrieved_ac.remove(nc);
-                                    }
-                                }*/
-                                retrieved_ac = nota;
+                                retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
+                                        .getString("data")));
                             }
-                            for(NotaCard nota2 : retrieved_ac){
-                                System.out.println("NOTA2");
-                                System.out.println(nota2);
-                            }
-                            listener.setCollection(retrieved_ac);
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+                            temp[0] = retrieved_ac;
                         }
                     }
                 });
+        for(NotaCard ne : temp[0]){
+            System.out.println(ne.getTitol() + "JAJAJAJA");
+        }
+        return temp[0];
+    }
+
+    public ArrayList<NotaCard> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(ArrayList<NotaCard> notas) {
+        this.notas = notas;
     }
 
     public void saveDocument(String noteId, String title, String owner, String contingut, String data) {
@@ -176,6 +182,7 @@ public class FireBaseAdapter {
         System.out.println(position2 + " Position in save document");
         db.collection("notaCards").document(position2).set(note);
         size++;
+        NotaCard nc = new NotaCard(title, contingut,owner, data);
         // Add a new document with a generated ID
         /*db.collection("notaCards")
                 .add(note)
@@ -199,39 +206,51 @@ public class FireBaseAdapter {
     }
     public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, int pos) {
         Log.d(TAG, "deleteDocument");
-        System.out.println("ESTOY AQUIIIIIIIIIIIIIIII");
+        for (NotaCard ne : getNotas()){
+            System.out.println(ne.getTitol() + ":   NOTA");
+        }
         pos++;
+        int cont2 = 1, cont3 = 0;
         position = String.valueOf(pos);
         //position = pos;
         //System.out.println("EOOOOO" + db.collection("notaCards").document(idNotes.get(tempPos)));
-        System.out.println(position + " Position of Delete");
-        if(size == 1){
+        System.out.println(position + " Position of Delete ");
+       /* if(size == 1){
             db.collection("notaCards").document("1")
                     .delete(); //Arreglar que se reste uno el id
-        }else {
-            db.collection("notaCards").document(position/*idNotes.get(tempPos)*/)
-                    .delete();
+       */// }else {
+            //db.collection("notaCards").document(position/*idNotes.get(tempPos)*/).delete();
+        int pos2 = pos -1;
+        System.out.println(pos2 + " Remove this note");
+            getNotas().remove(pos2); //Da error porque con set y get, solo guarda una nota no las dos, averiguar porque, "showcollections"
+        for (NotaCard ne : getNotas()){
+            System.out.println(ne.getTitol() + ":   NOTA2");
         }
-        /*for (int i = 0; i < size; i++) {
+            setNotas(getNotas());
+
+        //}
+        for (int i = 1; i <= size; i++) {
             //delete y save, igual que el updtate, pero con el nuevo id
             String o = String.valueOf(i);
+            System.out.println("Position offff " + o + " size: " + size);
             db.collection("notaCards").document(o).delete();
-            size--;
-            Map<String, Object> note = new HashMap<>();
-            note.put("noteId", noteId);
-            note.put("title", title);
-            note.put("owner", owner);
-            note.put("contingut", contingut);
-            note.put("data", data);
-            System.out.println("SIZE " + size);
-            //note.put("position", position2);
-            Log.d(TAG, "saveDocument");
-            System.out.println(position + " Position save/update document");
-            db.collection("notaCards").document(position).set(note);
-            size++;
+        }
 
-        }*/
+        for (NotaCard ne : getNotas()){
+            System.out.println(ne.getTitol() + " titol of nova nota");
+            Map<String, Object> note = new HashMap<>();
+            note.put("noteId", ne.getNoteId());
+            note.put("title", ne.getTitol());
+            note.put("owner", ne.getOwner());
+            note.put("contingut", ne.getContingut());
+            note.put("data", ne.getData());
+            System.out.println(cont2 + " Position of update document");
+            String y = String.valueOf(cont2);
+            db.collection("notaCards").document(y).set(note);
+            cont2++;
+        }
         size--;
+
     }
     public void updateDocument(int pos, String noteId, String title, String owner, String contingut, String data) {
         Log.d(TAG, "updateDocument");
