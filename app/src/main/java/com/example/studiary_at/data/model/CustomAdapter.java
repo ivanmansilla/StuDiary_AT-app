@@ -218,7 +218,8 @@ public class CustomAdapter extends RecyclerView.Adapter{
     private void playAudio(int position) {
         // Play audio for clicked note
 
-        //listener.startPlaying(position);
+        listener.startPlaying(position);
+
 
     }
 

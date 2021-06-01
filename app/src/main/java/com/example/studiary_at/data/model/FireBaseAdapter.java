@@ -193,6 +193,24 @@ public class FireBaseAdapter {
         size++;
         System.out.println("SIZE OF SAVE DESPRES DAFEGIR " + size);
     }
+    public void saveDocument2(String noteId, String audiodesc, String owner, String adress) {
+        System.out.println("saveDOCument 1");
+        Map<String, Object> note = new HashMap<>();
+        note.put("noteId", noteId);
+        note.put("title", audiodesc);
+        note.put("owner", owner);
+        note.put("adress", adress);
+        System.out.println("SIZE OF SAVE " + size);
+        int pos = size+1;
+        position2 = String.valueOf(pos);
+        //note.put("position", position2);
+        Log.d(TAG, "saveDocument");
+        System.out.println(position2 + " Position in save document");
+        db.collection(data).document(position2).set(note);
+        size++;
+        System.out.println("SIZE OF SAVE DESPRES DAFEGIR " + size);
+    }
+
     public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, int pos) {
         Log.d(TAG, "deleteDocument");
         for (NotaCard ne : notas){
