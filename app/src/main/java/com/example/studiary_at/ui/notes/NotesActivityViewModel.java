@@ -17,20 +17,14 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
     private static NotesActivityViewModel uniqueInstance;
     private String data;
     private NotesActivity notesActivity;
-    private FireBaseAdapter fireBaseAdapter;
+    private FireBaseAdapter fa;
 
     public NotesActivityViewModel(){
         System.out.println("HOLA SOY EL CONSTRUCTOR DE NOTESACTIVITYVIEWMODEL");
         mNotaCards = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
-        //FireBaseAdapter fa = new FireBaseAdapter(this);
-        fireBaseAdapter = fireBaseAdapter.getInstance(this);
-        //setCollection(mNotaCards.getValue());  //L'error es cuando sales de afegir nota y vuelves a entrar no aparece, por tanto al hacer addnota
-                                            //no puede poenr la nueva nota (ja que esta parece que este vacia pero no)
-                                            //Parece que el error fuera el setcollection pero no, puede ser que sea el view model o no.. seguir
-                                            //buscando, problema es que no aparece cuando le das para atras y para alante, pero si lo coge bien
-                                            //update: problema creo que es el viewmodel, no hace bien el getinstance
-                                            //uodate: viewModel get instance arreglado, ahora mNotacards/setCollection es el que hace que on se guarde
+        fa = new FireBaseAdapter(this);
+        //setCollection(mNotaCards.getValue());
                                             //update: el errror esta en el show collections hace el set de una lista vacia ya que no hace bien lo de la fecha
         //notesActivity = notesActivity.getInstance();
         //Collection();
@@ -49,14 +43,15 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
     public void update(){
         System.out.println("PEPE VIYUELA " + getData());
         //setCollection(mNotaCards.getValue());
-        fireBaseAdapter.showCollection(getData());
+        //fireBaseAdapter = fireBaseAdapter.getInstance(this);
+        System.out.println("jeje " + this);
+        fa.showCollection(getData());
     }
 
     public static NotesActivityViewModel getInstance() {
-        if (uniqueInstance == null) {
+        /*if (uniqueInstance == null) {
             uniqueInstance = new NotesActivityViewModel();
-        }
-
+        }*/
         return uniqueInstance;
     }
 

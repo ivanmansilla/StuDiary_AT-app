@@ -104,11 +104,11 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
 
     public void setLiveDataObservers() {
         //Subscribe the activity to the observable
-        viewModel = viewModel.getInstance();
-       // viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class); //El error esta aqui
-       // viewMo//del.setInstance(viewModel);
-        viewModel.setData(stData);
-        viewModel.update();
+       // viewModel = viewModel.getInstance();
+         viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class); //El error esta aqui
+         viewModel.setInstance(viewModel);
+         viewModel.setData(stData);
+         viewModel.update();
 
 
         final Observer<ArrayList<NotaCard>> observer = new Observer<ArrayList<NotaCard>>() {
