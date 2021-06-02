@@ -8,6 +8,7 @@ import com.example.studiary_at.data.model.FireBaseAdapter;
 import com.example.studiary_at.data.model.NotaCard;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class AudioViewModel extends ViewModel implements FireBaseAdapter.vmInterface{
     private final MutableLiveData<ArrayList<NotaCard>> mAudioCards;
@@ -26,7 +27,9 @@ public class AudioViewModel extends ViewModel implements FireBaseAdapter.vmInter
         return mAudioCards.getValue().get(idx);
     }
     public void addAudioCard(String description, String localPath, String owner, String data ){
-        NotaCard ac = new NotaCard(description, localPath, owner,data);
+        UUID uuid = UUID.randomUUID();
+        String notaid = uuid.toString();
+        NotaCard ac = new NotaCard(description, localPath, owner,data,notaid);
         mAudioCards.getValue().add(ac);
         // Inform observer.
         mAudioCards.setValue(mAudioCards.getValue());

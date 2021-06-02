@@ -109,7 +109,7 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
         Button saveButton = popupView.findViewById(R.id.save_button);
         saveButton.setOnClickListener((v) -> {
             String text = saveDescr.getEditText().getText().toString();
-            viewModel.addAudioCard(text, fileName, "",saveDescr.);
+            //viewModel.addAudioCard(text, fileName, "",saveDescr.);
             popupWindow.dismiss();
         });
     }

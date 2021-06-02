@@ -181,5 +181,10 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
                 .show();
     }
 
+    @Override
+    public void startPlaying(int fileName) {
+
+    }
+
 
 }

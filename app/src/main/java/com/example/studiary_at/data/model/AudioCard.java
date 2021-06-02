@@ -37,9 +37,8 @@ public class AudioCard implements Nota {
     }
 
     public void saveCard() {
-
         Log.d("saveCard", "saveCard-> saveDocument");
-        adapter.saveDocument(this.noteId, this.audioDesc, this.owner,this.address);
+        //adapter.saveDocument(this.noteId, this.audioDesc, this.owner,this.address);
     }
 
     public AudioCard getCard() {
@@ -55,4 +54,4 @@ public class AudioCard implements Nota {
         }
     }
 }
-}
+

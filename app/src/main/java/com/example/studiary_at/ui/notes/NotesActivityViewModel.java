@@ -8,6 +8,7 @@ import com.example.studiary_at.data.model.FireBaseAdapter;
 import com.example.studiary_at.data.model.NotaCard;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter.vmInterface {
 
@@ -68,12 +69,10 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
 
     public void addNotaCard(String titol, String contingut, String owner, String data){
         System.out.println(mNotaCards + "notacartasss");
-        NotaCard nc = new NotaCard(titol, contingut, owner, data);
-        mNotaCards.getValue().add(nc);
+        UUID uuid = UUID.randomUUID();
+        String notaid = uuid.toString();
+        NotaCard nc = new NotaCard(titol, contingut, owner, data, notaid);
         // Inform observer.
-        for(NotaCard ne : mNotaCards.getValue()){
-            System.out.println(ne.getTitol() + "siuuuu");
-        }
         //mNotaCards.setValue(mNotaCards.getValue());
         setCollection(mNotaCards.getValue());
         nc.saveCard();
@@ -99,13 +98,14 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
 
     public void deleteNotaCard(int position){
         NotaCard nc = mNotaCards.getValue().get(position);
+        System.out.println(nc.getNoteId() + " notaID ");
         mNotaCards.getValue().remove(nc);
+        setCollection(mNotaCards.getValue());
         //Inform observer
         //mNotaCards.setValue(mNotaCards.getValue());
-        setCollection(mNotaCards.getValue());
-        String notaId = nc.getNoteId();
-        String data = nc.getData();
-        nc.deleteCard(mNotaCards.getValue(), notaId, data);
+        System.out.println(nc.getTitol() + "TIOl nota ");
+        nc.deleteCard(mNotaCards.getValue());
+
 
     }
 

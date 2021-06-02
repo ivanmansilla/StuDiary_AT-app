@@ -85,7 +85,7 @@ public class FireBaseAdapter {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
-                                .getString("data")));
+                                .getString("data"), document.getString("noteId")));
                                 size++;
                             }
                             listener.setCollection(retrieved_ac);
@@ -148,17 +148,7 @@ public class FireBaseAdapter {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
-                                              .getString("data")));
-                                notas.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
-                                        .getString("data")));
-                            }
-                            for(NotaCard no : retrieved_ac){
-                                System.out.println(no.getTitol() + "uiiiiissss");
-                            }
-                            //notas = retrieved_ac;
-                            for(NotaCard no : notas()){
-                                size++;
-                                System.out.println(no.getTitol() + "uiiiiissss222");
+                                              .getString("data"), document.getString("noteId")));
                             }
                             listener.setCollection(retrieved_ac);
                         } else {
@@ -191,12 +181,14 @@ public class FireBaseAdapter {
         Log.d(TAG, "saveDocument");
         System.out.println(position2 + " Position in save document");
         db.collection(data).document(noteId).set(note);
+        showCollection(data);
         //size++;
         System.out.println("SIZE OF SAVE DESPRES DAFEGIR " + size);
     }
 
     public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, String noteId, String data) {
         Log.d(TAG, "deleteDocument");
+        System.out.println(noteId + "  " + data + "deleeeete");
         db.collection(data).document(noteId).delete();
        /* for (NotaCard ne : notas){
             System.out.println(ne.getTitol() + ":   NOTA");
@@ -211,7 +203,7 @@ public class FireBaseAdapter {
             db.collection("notaCards").document("1")
                     .delete(); //Arreglar que se reste uno el id
        */// }else {
-            db.collection("notaCards").document(position/*idNotes.get(tempPos)*/).delete();
+           // db.collection("notaCards").document(position/*idNotes.get(tempPos)*/).delete();
         /*int pos2 = pos -1;
         System.out.println(pos2 + " Remove this note");
             notas.remove(pos2); //Da error porque con set y get, solo guarda una nota no las dos, averiguar porque, "showcollections"
