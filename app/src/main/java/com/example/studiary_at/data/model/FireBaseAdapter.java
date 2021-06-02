@@ -191,7 +191,7 @@ public class FireBaseAdapter {
         Log.d(TAG, "saveDocument");
         System.out.println(position2 + " Position in save document");
         db.collection(data).document(noteId).set(note);
-        size++;
+        //size++;
         System.out.println("SIZE OF SAVE DESPRES DAFEGIR " + size);
     }
 
