@@ -25,8 +25,8 @@ public class AudioViewModel extends ViewModel implements FireBaseAdapter.vmInter
     public NotaCard getAudioCard(int idx){
         return mAudioCards.getValue().get(idx);
     }
-    public void addAudioCard(String description, String localPath, String owner ){
-        NotaCard ac = new NotaCard(description, localPath, owner);
+    public void addAudioCard(String description, String localPath, String owner, String data ){
+        NotaCard ac = new NotaCard(description, localPath, owner,data);
         mAudioCards.getValue().add(ac);
         // Inform observer.
         mAudioCards.setValue(mAudioCards.getValue());

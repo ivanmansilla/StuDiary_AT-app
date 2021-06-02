@@ -3,6 +3,7 @@ package com.example.studiary_at.ui.notes;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -12,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,15 +38,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class AudioActivity extends AppCompatActivity implements CustomAdapter.playerInterface {
+public class AudioActivity extends AppCompatActivity implements CustomAdapter.openNoteInterface {
     private AudioViewModel viewModel;
     private Context parentContext;
     private AppCompatActivity mActivity;
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
+    public String stData,contingut;
     private final String [] permissions = {Manifest.permission.RECORD_AUDIO};
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
-
+    private TextView data;
     private MediaRecorder recorder;
     private boolean isRecording = false;
 
@@ -63,6 +66,10 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.pl
         // Define RecyclerView elements: 1) Layout Manager and 2) Adapter
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        data = findViewById(R.id.dataView);
+        Intent intent = getIntent();
+        stData = intent.getStringExtra("data");
+        data.setText(stData);
 
         setLiveDataObservers();
 
@@ -161,6 +168,35 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.pl
         viewModel.getAudioCards().observe(this, observer);
         viewModel.getToast().observe(this, observerToast);
 
+    }
+
+    @Override
+    public void editNote(int nPosition) {
+
+    }
+
+    @Override
+    public void deleteNote(int nPosition) {
+
+    }
+
+    private void addNote(RecyclerView mRecView) {
+        View popupView = getLayoutInflater().inflate(R.layout.addnote_popup, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, 800, 600);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.showAtLocation(mRecView, Gravity.CENTER, 0, 0);
+
+        // Initialize objects from layout
+        TextInputLayout saveDescr = popupView.findViewById(R.id.note_title);
+        Button saveButton = popupView.findViewById(R.id.save_button);
+        saveButton.setOnClickListener((v) -> {
+            String title = saveDescr.getEditText().getText().toString();
+            contingut = " ";
+            System.out.println(viewModel + "REcyclerrrrr");
+            viewModel.addAudioCard(title, contingut, "", stData);
+            popupWindow.dismiss();
+        });
     }
 
     @Override
