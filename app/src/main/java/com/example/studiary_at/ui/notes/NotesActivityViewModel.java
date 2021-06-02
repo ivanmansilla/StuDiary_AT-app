@@ -103,7 +103,9 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
         //Inform observer
         //mNotaCards.setValue(mNotaCards.getValue());
         setCollection(mNotaCards.getValue());
-        nc.deleteCard(mNotaCards.getValue(), position);
+        String notaId = nc.getNoteId();
+        String data = nc.getData();
+        nc.deleteCard(mNotaCards.getValue(), notaId, data);
 
     }
 

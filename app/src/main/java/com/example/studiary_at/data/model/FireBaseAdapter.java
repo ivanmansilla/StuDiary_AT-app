@@ -135,6 +135,7 @@ public class FireBaseAdapter {
 
     public void showCollection(String stData) {
         size = 0;
+        //notas = new ArrayList<NotaCard>();
         System.out.println(listener + " jeje2");
         FireBaseAdapter.db.collection(stData)
                 .whereEqualTo("data", stData)
@@ -189,17 +190,19 @@ public class FireBaseAdapter {
         //note.put("position", position2);
         Log.d(TAG, "saveDocument");
         System.out.println(position2 + " Position in save document");
-        db.collection(data).document(position2).set(note);
+        db.collection(data).document(noteId).set(note);
         size++;
         System.out.println("SIZE OF SAVE DESPRES DAFEGIR " + size);
     }
-    public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, int pos) {
+
+    public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, String noteId, String data) {
         Log.d(TAG, "deleteDocument");
-        for (NotaCard ne : notas){
+        db.collection(data).document(noteId).delete();
+       /* for (NotaCard ne : notas){
             System.out.println(ne.getTitol() + ":   NOTA");
         }
         pos++;
-        int cont2 = 1, cont3 = 0;
+        int cont2 = 1;
         position = String.valueOf(pos);
         //position = pos;
         //System.out.println("EOOOOO" + db.collection("notaCards").document(idNotes.get(tempPos)));
@@ -209,7 +212,7 @@ public class FireBaseAdapter {
                     .delete(); //Arreglar que se reste uno el id
        */// }else {
             db.collection("notaCards").document(position/*idNotes.get(tempPos)*/).delete();
-        int pos2 = pos -1;
+        /*int pos2 = pos -1;
         System.out.println(pos2 + " Remove this note");
             notas.remove(pos2); //Da error porque con set y get, solo guarda una nota no las dos, averiguar porque, "showcollections"
         for (NotaCard ne : notas){
@@ -235,7 +238,7 @@ public class FireBaseAdapter {
             db.collection("notaCards").document(y).set(note);
             cont2++;
         }
-        size--;
+        size--;*/
 
     }
     public void updateDocument(int pos, String noteId, String title, String owner, String contingut, String data) {

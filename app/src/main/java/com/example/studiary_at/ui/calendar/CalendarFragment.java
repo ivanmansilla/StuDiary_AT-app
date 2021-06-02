@@ -49,7 +49,7 @@ public class CalendarFragment extends Fragment {
         });
         calendar = (CalendarView) root.findViewById(R.id.calendarView);
         goToNotesBtn = (Button) root.findViewById(R.id.add_note_button);
-        sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf = new SimpleDateFormat("dd-MM-yyyy");
         stDate = sdf.format(new Date(calendar.getDate()));
         System.out.println(stDate);
         setStDate(stDate);
@@ -80,9 +80,9 @@ public class CalendarFragment extends Fragment {
                 } else {
                     stDayOfMonth = Integer.toString(dayOfMonth);
                 }
-                stDate = (stDayOfMonth + "/" + stMonth + "/" + stYear);
+                stDate = (stDayOfMonth + "-" + stMonth + "-" + stYear);
                 try {
-                    data = new SimpleDateFormat("dd/MM/yyyy").parse(stDate); //Aconseguim la data marcada
+                    data = new SimpleDateFormat("dd-MM-yyyy").parse(stDate); //Aconseguim la data marcada
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

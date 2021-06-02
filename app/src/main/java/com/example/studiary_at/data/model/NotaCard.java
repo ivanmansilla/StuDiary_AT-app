@@ -10,7 +10,8 @@ public class NotaCard {
 
     private String noteId, contingut, titol;
     private int position;
-    private final String owner, data;
+    private final String owner;
+    private String data;
     private final FireBaseAdapter adapter = FireBaseAdapter.firebaseAdapter;
     public boolean updat = false;
 
@@ -59,10 +60,11 @@ public class NotaCard {
         adapter.saveDocument(this.noteId, this.titol, this.owner,this.contingut, this.data);
     }
 
-    public void deleteCard(ArrayList<NotaCard> nota, int pos){
+    public void deleteCard(ArrayList<NotaCard> nota, String notaId, String date){
         Log.d("deleteCard", "deleteCard-> deleteDocument");
-        position = pos;
-        adapter.deleteDocument(this, nota, position);
+        noteId = notaId;
+        data = date;
+        adapter.deleteDocument(this, nota, noteId, data);
 
     }
 
