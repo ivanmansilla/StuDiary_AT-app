@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class NotaCard {
+public class NotaCard implements Nota{
 
     private String noteId, contingut, titol;
     private int position;
@@ -85,5 +85,10 @@ public class NotaCard {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public int getType() {
+        return Nota.TYPE_TEXT;
     }
 }

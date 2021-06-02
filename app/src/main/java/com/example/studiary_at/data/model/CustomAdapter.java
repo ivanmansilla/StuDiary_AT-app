@@ -127,6 +127,7 @@ public class CustomAdapter extends RecyclerView.Adapter{
     }
 
 
+
     private void openNote(int position) {
         //listener.startPlaying(position);
         listener.editNote(position);
@@ -140,6 +141,7 @@ public class CustomAdapter extends RecyclerView.Adapter{
     public interface openNoteInterface {
         void editNote(int nPosition);
         void deleteNote(int nPosition);
+        void startPlaying(int fileName);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -166,7 +168,8 @@ public class CustomAdapter extends RecyclerView.Adapter{
             }
         });
     }*/
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
@@ -218,13 +221,9 @@ public class CustomAdapter extends RecyclerView.Adapter{
     private void playAudio(int position) {
         // Play audio for clicked note
 
-        //listener.startPlaying(position);
-
+        listener.startPlaying(position);
     }
 
-    public interface playerInterface{
-        void startPlaying(int fileName);
-    }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
