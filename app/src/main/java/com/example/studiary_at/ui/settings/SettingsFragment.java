@@ -1,5 +1,6 @@
 package com.example.studiary_at.ui.settings;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,21 +33,36 @@ public class SettingsFragment extends Fragment {
             public void onChanged(@Nullable String s) {
             }
         });
-
+        
+        final MainActivity ma = (MainActivity) getActivity();
+        SharedPreferences sp = ma.getSharedPreferences("SP", ma.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sp.edit();
         final Switch swi = root.findViewById(R.id.switchTema);
+
+        int theme = sp.getInt("Theme", 1);
+        if (theme == 1) {
+            swi.setChecked(false);
+        }else{
+            swi.setChecked(true);
+        }
+
+
         swi.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onClick(View v) {
                 if (swi.isChecked()){
-                    ((MainActivity)getActivity()).setDayNight(0);
+                    editor.putInt("Theme", 0);
                 }
                 else{
-                    ((MainActivity)getActivity()).setDayNight(1);
+                    editor.putInt("Theme", 1);
                 }
+                editor.commit();
+                ma.setDayNight();
             }
         });
 
         return root;
-    }
-}
+    }}
+
+

@@ -1,5 +1,6 @@
 package com.example.studiary_at;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity  {
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +33,14 @@ public class MainActivity extends AppCompatActivity  {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
+        setDayNight();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void setDayNight(int mode){
-        if(mode==0){
+    public void setDayNight(){
+        SharedPreferences sp = getSharedPreferences("SP", this.MODE_PRIVATE);
+        int theme = sp.getInt("Theme", 1);
+        if(theme==0){
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
         else{getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
