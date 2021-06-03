@@ -62,7 +62,7 @@
         android:background="#C7ACF4"
         android:text="@string/inicia_sessio"
         android:textColor="#FFFFFF"
-        app:backgroundTint="#1C0A6E"
+        app:backgroundTint="#8678C5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.571"

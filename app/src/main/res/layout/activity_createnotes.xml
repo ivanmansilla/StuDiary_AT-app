@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:background="#1C0A6E"
         android:text="@string/hecho"
-        app:backgroundTint="#1C0A6E"
+        app:backgroundTint="#8678C5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.88"

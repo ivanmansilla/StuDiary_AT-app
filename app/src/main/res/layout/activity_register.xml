@@ -37,7 +37,7 @@
         android:layout_height="50dp"
         android:fadingEdge="none"
         android:text="@string/registrarse"
-        app:backgroundTint="#1C0A6E"
+        app:backgroundTint="#8678C5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

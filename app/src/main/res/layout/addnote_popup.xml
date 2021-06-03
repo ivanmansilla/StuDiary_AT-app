@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/guardar_nota"
-        app:backgroundTint="#1C0A6E" />
+        app:backgroundTint="#8678C5" />
 
 
 </LinearLayout>

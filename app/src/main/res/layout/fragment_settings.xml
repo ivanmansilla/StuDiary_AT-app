@@ -58,20 +58,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.469" />
 
-    <Button
-        android:id="@+id/button_changeback_set"
-        android:layout_width="272dp"
-        android:layout_height="55dp"
-        android:fadingEdge="none"
-        android:text="@string/canvia_el_tema"
-        app:backgroundTint="#1C0A6E"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.684" />
-
     <Switch
         android:id="@+id/switchTema"
         android:layout_width="wrap_content"
