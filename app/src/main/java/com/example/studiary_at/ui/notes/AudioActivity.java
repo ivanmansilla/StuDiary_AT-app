@@ -28,6 +28,7 @@ import com.example.studiary_at.R;
 import com.example.studiary_at.data.model.CustomAdapter;
 import com.example.studiary_at.data.model.NotaCard;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
@@ -44,11 +45,13 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
     private AppCompatActivity mActivity;
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
+    private FloatingActionButton addNote_btn;
     public String stData,contingut;
     private final String [] permissions = {Manifest.permission.RECORD_AUDIO};
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private TextView data;
     private MediaRecorder recorder;
+    private static AudioActivity uniqueInstance;
     private boolean isRecording = false;
 
     String fileName;
@@ -57,7 +60,7 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_notes);
         parentContext = this.getBaseContext();
         mActivity = this;
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
@@ -65,6 +68,7 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
 
         // Define RecyclerView elements: 1) Layout Manager and 2) Adapter
         mRecyclerView = findViewById(R.id.recyclerView);
+        addNote_btn = findViewById(R.id.extended_fab);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         data = findViewById(R.id.dataView);
         Intent intent = getIntent();
@@ -75,41 +79,30 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
 
 
         // Floating button functionality
-        @SuppressLint("WrongViewCast") ExtendedFloatingActionButton extendedFab = findViewById(R.id.extended_fab);
-        extendedFab.setOnClickListener((v) -> {
-            // Change Extended FAB aspect and handle recording
-            if (isRecording) {
-                extendedFab.extend();
-                extendedFab.setIcon(
-                        ContextCompat.getDrawable(
-                                parentContext, android.R.drawable.ic_input_add));
-                stopRecording();
+        addNote_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("HOLAAAAAAAAAAAAAAAAAA");
                 showPopup(mRecyclerView);
 
-            } else {
-                extendedFab.shrink();
-                extendedFab.setIcon(
-                        ContextCompat.getDrawable(
-                                parentContext, android.R.drawable.ic_btn_speak_now));
-                startRecording();
             }
         });
 
     }
 
     private void showPopup(RecyclerView anchorView) {
-        View popupView = getLayoutInflater().inflate(R.layout.popup_layout, null);
+        View popupView = getLayoutInflater().inflate(R.layout.audio_add, null);
         PopupWindow popupWindow = new PopupWindow(popupView, 800, 600);
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable());
         popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0);
 
         // Initialize objects from layout
-        TextInputLayout saveDescr = popupView.findViewById(R.id.note_description);
-        Button saveButton = popupView.findViewById(R.id.save_button);
+        TextInputLayout saveDescr = popupView.findViewById(R.id.save_button2);
+        Button saveButton = popupView.findViewById(R.id.save_button2);
         saveButton.setOnClickListener((v) -> {
             String text = saveDescr.getEditText().getText().toString();
-            //viewModel.addAudioCard(text, fileName, "",saveDescr.);
+            viewModel.addAudioCard(text, fileName, "",stData);
             popupWindow.dismiss();
         });
     }
@@ -145,19 +138,32 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
         recorder = null;
         isRecording = false;
     }
+    public static AudioActivity getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new AudioActivity();
+        }
+        return uniqueInstance;
+    }
 
-    private void setLiveDataObservers() {
-        viewModel = new ViewModelProvider(this).get(AudioViewModel.class);
+    public void setLiveDataObservers() {
+        //Subscribe the activity to the observable
+        // viewModel = viewModel.getInstance();
+        viewModel = new ViewModelProvider(this).get(AudioViewModel.class); //El error esta aqui
+        viewModel.setInstance(viewModel);
+        viewModel.setData(stData);
+        viewModel.update();
+
 
         final Observer<ArrayList<NotaCard>> observer = new Observer<ArrayList<NotaCard>>() {
             @Override
-            public void onChanged(ArrayList<NotaCard> ac) {
-                CustomAdapter newAdapter = new CustomAdapter(parentContext, ac, (CustomAdapter.openNoteInterface) mActivity);
+            public void onChanged(ArrayList<NotaCard> nc) {
+                CustomAdapter newAdapter = new CustomAdapter(parentContext, nc, (CustomAdapter.openNoteInterface) mActivity);
                 mRecyclerView.swapAdapter(newAdapter, false);
                 newAdapter.notifyDataSetChanged();
 
             }
-    };
+        };
+
         final Observer<String> observerToast = new Observer<String>() {
             @Override
             public void onChanged(String t) {
@@ -165,10 +171,10 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
             }
         };
 
-        viewModel.getAudioCards().observe(this, observer);
+        viewModel.getNotaCards().observe(this, observer);
         viewModel.getToast().observe(this, observerToast);
-
     }
+
 
     @Override
     public void editNote(int nPosition) {
@@ -204,7 +210,7 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
         try {
             MediaPlayer player = new MediaPlayer();
 
-            fileName = viewModel.getAudioCard(recyclerItem).getTitol();
+            fileName = viewModel.getAudioCard(recyclerItem).getDescription();
             Log.d("startPlaying", fileName);
             player.setDataSource(fileName);
             player.prepare();

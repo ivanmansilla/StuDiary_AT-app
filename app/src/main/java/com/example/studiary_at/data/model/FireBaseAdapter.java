@@ -44,7 +44,7 @@ public class FireBaseAdapter {
     private static FireBaseAdapter uniqueInstance2;
     private int size;
     private String position, position2;
-    private ArrayList<NotaCard> notas;
+    private ArrayList<Nota> notas;
 
 
     public static vmInterface listener;
@@ -55,7 +55,7 @@ public class FireBaseAdapter {
         this.listener = listener;
         firebaseAdapter = this;
         FirebaseFirestore.setLoggingEnabled(true);
-        notas = new ArrayList<NotaCard>();
+        notas = new ArrayList<Nota>();
     }
     public static FireBaseAdapter getInstance(vmInterface listen) {
         if (uniqueInstance2 == null) {
@@ -65,7 +65,7 @@ public class FireBaseAdapter {
     }
 
     public interface vmInterface{
-        void setCollection(ArrayList<NotaCard> nc);
+        void setCollection(ArrayList<Nota> nc);
         void setToast(String s);
     }
 
@@ -81,11 +81,18 @@ public class FireBaseAdapter {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
+                            ArrayList<Nota> retrieved_ac = new ArrayList<Nota>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                Nota nota= new Nota() {
+                                    @Override
+                                    public int getType() {
+                                        return ;
+                                    }
+                                };
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
-                                .getString("data"), document.getString("noteId")));
+                                retrieved_ac.add(new Nota(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
+                                        .getString("data"), document.getString("noteId")) {
+                                });
                                 size++;
                             }
                             listener.setCollection(retrieved_ac);
@@ -144,10 +151,10 @@ public class FireBaseAdapter {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
+                            ArrayList<Nota> retrieved_ac = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
+                                retrieved_ac.add(new Nota(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
                                               .getString("data"), document.getString("noteId")));
                             }
                             listener.setCollection(retrieved_ac);
@@ -158,11 +165,11 @@ public class FireBaseAdapter {
                 });
     }
 
-    public ArrayList<NotaCard> notas() {
+    public ArrayList<Nota> notas() {
         return notas;
     }
 
-    public void setNotas(ArrayList<NotaCard> notas) {
+    public void setNotas(ArrayList<Nota> notas) {
         this.notas = notas;
     }
 
@@ -186,7 +193,7 @@ public class FireBaseAdapter {
         System.out.println("SIZE OF SAVE DESPRES DAFEGIR " + size);
     }
 
-    public void deleteDocument (NotaCard nc, ArrayList<NotaCard> nota, String noteId, String data) {
+    public void deleteDocument (Nota nc, ArrayList<Nota> nota, String noteId, String data) {
         Log.d(TAG, "deleteDocument");
         System.out.println(noteId + "  " + data + "deleeeete");
         db.collection(data).document(noteId).delete();
@@ -318,12 +325,4 @@ public class FireBaseAdapter {
         return new HashMap<>();
 
     }
-
-
-
-
-
-
-
-
 }

@@ -69,4 +69,8 @@
     <string name="nom2">NOM</string>
     <string name="play_button_description">play_button_description</string>
     <string name="add_audio">Add audio</string>
+    <string name="grabar_audio">Grabar audio</string>
+    <string name="descripci_de_audio">Descripció de audio</string>
+    <string name="descripcio_de_audio" />
+    <string name="descripcio_de_l_audio">descripcio de l\'audio</string>
 </resources>
