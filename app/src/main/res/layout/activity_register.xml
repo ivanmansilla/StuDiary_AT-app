@@ -55,7 +55,7 @@
         android:background="#FFFFFF"
         android:ellipsize="none"
         android:fadingEdge="none"
-        android:hint="@string/nom"
+        android:hint="@string/nombre"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -74,4 +74,10 @@
     <string name="descripcio_de_audio" />
     <string name="descripcio_de_l_audio">descripcio de l\'audio</string>
     <string name="perfil_1">PERFIL</string>
+    <string name="inicia_sessi_n">inicia_sessión</string>
+    <string name="notas">NOTAS</string>
+    <string name="nombre">Nombre</string>
+    <string name="e_mail_del_usuario">E-MAIL DEL USUARIO</string>
+    <string name="cerrar_sesi_n">CERRAR SESIÓN</string>
+    <string name="inicia_sesi_n">INICIA SESIÓN</string>
 </resources>
