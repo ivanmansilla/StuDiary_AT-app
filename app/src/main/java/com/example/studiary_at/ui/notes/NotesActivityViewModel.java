@@ -14,23 +14,15 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
 
     private final MutableLiveData<ArrayList<NotaCard>> mNotaCards;
     private final MutableLiveData<String> mToast;
-    public static final String TAG = "ViewModel";
     private static NotesActivityViewModel uniqueInstance;
     private String data;
-    private NotesActivity notesActivity;
     private FireBaseAdapter fa;
 
     public NotesActivityViewModel(){
-        System.out.println("HOLA SOY EL CONSTRUCTOR DE NOTESACTIVITYVIEWMODEL");
         mNotaCards = new MutableLiveData<>();
         mToast = new MutableLiveData<>();
+        //Inicialitzem el firebaseAdapter amb aquest listener
         fa = new FireBaseAdapter(this);
-        //setCollection(mNotaCards.getValue());
-                                            //update: el errror esta en el show collections hace el set de una lista vacia ya que no hace bien lo de la fecha
-        //notesActivity = notesActivity.getInstance();
-        //Collection();
-        //notesActivity.showColl(fireBaseAdapter);
-        //fa.showCollection(notesActivity.getData());
     }
 
     public String getData() {
@@ -42,17 +34,11 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
     }
 
     public void update(){
-        System.out.println("PEPE VIYUELA " + getData());
-        //setCollection(mNotaCards.getValue());
-        //fireBaseAdapter = fireBaseAdapter.getInstance(this);
-        System.out.println("jeje " + this);
+        //Mostrarem la collection amb la data corresponent
         fa.showCollection(getData());
     }
 
     public static NotesActivityViewModel getInstance() {
-        /*if (uniqueInstance == null) {
-            uniqueInstance = new NotesActivityViewModel();
-        }*/
         return uniqueInstance;
     }
 
@@ -68,43 +54,40 @@ public class NotesActivityViewModel extends ViewModel implements FireBaseAdapter
     }
 
     public void addNotaCard(String titol, String contingut, String owner, String data){
-        System.out.println(mNotaCards + "notacartasss");
+        //Generem un random uuid per a la nota creada
         UUID uuid = UUID.randomUUID();
         String notaid = uuid.toString();
         NotaCard nc = new NotaCard(titol, contingut, owner, data, notaid);
-        // Inform observer.
-        //mNotaCards.setValue(mNotaCards.getValue());
         setCollection(mNotaCards.getValue());
+        //Quan creem la nota, la guardem a nivell de firebase
         nc.saveCard();
     }
 
     public void editNotaCard(String title, String contingut, int position) {
         NotaCard nc = getNotaCard(position);
-
-        //nc.deleteCard(mNotaCards.getValue(), position);
-
         mNotaCards.getValue().get(position).setContingut(contingut);
         mNotaCards.getValue().get(position).setTitol(title);
 
+        //Actualitzem la nota amb l'ultim titol i contingut
         nc.setContingut(contingut);
         nc.setTitol(title);
 
+        //Actulitzem la nota a nivell de firebase/firestore i la llista corresponent
         mNotaCards.setValue(mNotaCards.getValue());
-        nc.updateCard(position);
-        //nc.saveCard();
+        nc.updateCard();
+
 
 
     }
 
     public void deleteNotaCard(int position){
+        //Agafem la notaCard que volem eliminar
         NotaCard nc = mNotaCards.getValue().get(position);
-        System.out.println(nc.getNoteId() + " notaID ");
         mNotaCards.getValue().remove(nc);
+        //Actulitzem la colecció amb la nota eliminada
         setCollection(mNotaCards.getValue());
-        //Inform observer
-        //mNotaCards.setValue(mNotaCards.getValue());
-        System.out.println(nc.getTitol() + "TIOl nota ");
-        nc.deleteCard(mNotaCards.getValue());
+        //Eliminem la nota a nivell de firebase
+        nc.deleteCard();
 
 
     }

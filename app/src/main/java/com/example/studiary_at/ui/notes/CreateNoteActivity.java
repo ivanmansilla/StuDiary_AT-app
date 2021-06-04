@@ -40,7 +40,6 @@ public class CreateNoteActivity extends AppCompatActivity{
         titleTV = (TextView) findViewById(R.id.textView_title_createNotes);
 
         Intent intent = getIntent();
-
         title = intent.getStringExtra("titol");
         titleTV.setText(title);
 
@@ -63,6 +62,7 @@ public class CreateNoteActivity extends AppCompatActivity{
         notaCard.setContingut(contingut);
         viewModel.editNotaCard(title, contingut, position);
         finish();
+        //Una vegada editem la nota s'envia el edit nota del viewModel on la actualitzarem
 
     }
 }

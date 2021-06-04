@@ -48,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
                 emailReg = email_et.getText().toString();
                 passwordReg = contrasenya_et.getText().toString();
                 confPasReg = confContrasenya_et.getText().toString();
+
+                //Controlem possibles errors
                 if(!passwordReg.equals(confPasReg)){
                     Toast toast1 =
                             Toast.makeText(getApplicationContext(),
@@ -88,6 +90,4 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
     }
 
-    private void updateUI(FirebaseUser user) {
-    }
 }

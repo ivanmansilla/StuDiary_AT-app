@@ -30,9 +30,6 @@ public class PerfilFragment extends Fragment{
     private Button signOut_button;
     private FirebaseAuth mAuth;
     private TextView mail;
-    private TextView nom;
-    private TextView number;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,16 +43,13 @@ public class PerfilFragment extends Fragment{
 
         });
 
-
         mail = (TextView) root.findViewById(R.id.mailperfil);
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        String emailuser,nomUser,numberUser;
+        String emailuser;
 
+        //Tenim en una variable el mail del usuari
         emailuser = user.getEmail();
-        nomUser = user.getDisplayName();
-        numberUser = user.getPhoneNumber();
 
         mail.setText(emailuser, TextView.BufferType.EDITABLE);
 

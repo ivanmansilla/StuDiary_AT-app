@@ -45,18 +45,12 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
     private Context parentContext;
     private AppCompatActivity mActivity;
 
-    static ArrayList<NotaCard> notes = new ArrayList<>();
-    static ArrayAdapter arrayAdapter;
     private FloatingActionButton addNote_btn;
-    //private Date data;
-    public String stData, data2;
+    public String stData, contingut;
     private TextView data;
     private NotesActivityViewModel viewModel;
     private RecyclerView mRecyclerView;
-    private NotaCard notaCard;
-    private String titol, contingut, position;
-    private static NotesActivity uniqueInstance;
-    private FireBaseAdapter fireBaseAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +58,6 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         setContentView(R.layout.activity_notes);
         parentContext = this.getBaseContext();
         mActivity = this;
-
-
-        //fireBaseAdapter = fireBaseAdapter.getInstance();  falta listener viewmodel
 
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -76,40 +67,24 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         Intent intent = getIntent();
         stData = intent.getStringExtra("data");
         data.setText(stData);
-        //setData(stData);
 
         setLiveDataObservers();
-        //fireBaseAdapter.showCollection(stData);
 
         addNote_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(viewModel + "recyyyycler");
                 addNote(mRecyclerView);
             }
         });
 
     }
 
-    public static NotesActivity getInstance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new NotesActivity();
-        }
-        return uniqueInstance;
-    }
-    /*public void showColl(FireBaseAdapter fba){
-        System.out.println("Detaaaa " + stData);
-        fba.showCollection(stData);
-    }*/
-
     public void setLiveDataObservers() {
-        //Subscribe the activity to the observable
-       // viewModel = viewModel.getInstance();
-         viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class); //El error esta aqui
+         // Creem el viewModel, i gracies el setData, mostrarem les notes d'aquest dia
+         viewModel = new ViewModelProvider(this).get(NotesActivityViewModel.class);
          viewModel.setInstance(viewModel);
          viewModel.setData(stData);
          viewModel.update();
-
 
         final Observer<ArrayList<NotaCard>> observer = new Observer<ArrayList<NotaCard>>() {
             @Override
@@ -117,7 +92,6 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
                 CustomAdapter newAdapter = new CustomAdapter(parentContext, nc, (CustomAdapter.openNoteInterface) mActivity);
                 mRecyclerView.swapAdapter(newAdapter, false);
                 newAdapter.notifyDataSetChanged();
-
             }
         };
 
@@ -130,9 +104,6 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
 
         viewModel.getNotaCards().observe(this, observer);
         viewModel.getToast().observe(this, observerToast);
-
-
-
     }
 
     private void addNote(RecyclerView mRecView) {
@@ -148,7 +119,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         saveButton.setOnClickListener((v) -> {
             String title = saveDescr.getEditText().getText().toString();
             contingut = " ";
-            System.out.println(viewModel + "REcyclerrrrr");
+            //Cridem al metode d'afegir una notaCard del viewModel, on s'afegirà també a nivell de Firestore
             viewModel.addNotaCard(title, contingut, "", stData);
             popupWindow.dismiss();
         });
@@ -159,6 +130,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
         Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
         intent.putExtra("titol", title);
         intent.putExtra("position", nPosition);
+        //Quan volguem editar la nota, es cridarà a la classe de CreateNoteActivity amb el titol i poisicó corresponent de la nota a editar
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getApplicationContext().startActivity(intent);
 
@@ -174,6 +146,7 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        //Cridem al metode d'eliminar una notaCard del viewModel amb la seva posicio, on s'eliminarà també a nivell de Firestore
                         viewModel.deleteNotaCard(nPosition);
                     }
                 })
@@ -181,10 +154,10 @@ public class NotesActivity extends AppCompatActivity implements CustomAdapter.op
                 .show();
     }
 
-    @Override
+    /*@Override
     public void startPlaying(int fileName) {
 
-    }
+    }*/
 
 
 }

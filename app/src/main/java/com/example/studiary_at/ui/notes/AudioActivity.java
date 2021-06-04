@@ -1,5 +1,5 @@
 package com.example.studiary_at.ui.notes;
-
+/*
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -171,8 +171,8 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
             }
         };
 
-        /*viewModel.getNotaCards().observe(this, observer);
-        viewModel.getToast().observe(this, observerToast);*/
+        viewModel.getNotaCards().observe(this, observer);
+        viewModel.getToast().observe(this, observerToast);
     }
 
 
@@ -219,4 +219,4 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
             Log.d("startPlaying", "prepare() failed");
         }
     }
-}
+}*/

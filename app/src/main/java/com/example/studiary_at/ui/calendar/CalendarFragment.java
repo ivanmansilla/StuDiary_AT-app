@@ -56,7 +56,7 @@ public class CalendarFragment extends Fragment {
         goToNotesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Quan clickem al afegir nota, ens redigira cap a la classe NotesActivity gracies a un intent
                 Intent notesIntent = new Intent(CalendarFragment.this.getActivity(), NotesActivity.class);
                 notesIntent.putExtra("data", stDate);
                 startActivity(notesIntent);
@@ -82,7 +82,8 @@ public class CalendarFragment extends Fragment {
                 }
                 stDate = (stDayOfMonth + "-" + stMonth + "-" + stYear);
                 try {
-                    data = new SimpleDateFormat("dd-MM-yyyy").parse(stDate); //Aconseguim la data marcada
+                    //Tenim la data seleccionada en una variable
+                    data = new SimpleDateFormat("dd-MM-yyyy").parse(stDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -94,7 +95,6 @@ public class CalendarFragment extends Fragment {
     public String getStDate() {
         return stDate;
     }
-
     public void setStDate(String stDate) {
         this.stDate = stDate;
     }

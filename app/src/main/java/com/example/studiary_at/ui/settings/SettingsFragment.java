@@ -51,6 +51,7 @@ public class SettingsFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onClick(View v) {
+                //Cada vegada que clickem es canviarà a mode oscur o clar
                 if (swi.isChecked()){
                     editor.putInt("Theme", 0);
                 }

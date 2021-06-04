@@ -2,34 +2,29 @@ package com.example.studiary_at.data.model;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+public class NotaCard {
 
-public class NotaCard implements Nota{
-
-    private String  contingut, titol;
-    private int position;
+    private String  contingut, titol, noteId;
     private final String owner;
     private final String data;
-    private String noteId;
     private final FireBaseAdapter adapter = FireBaseAdapter.firebaseAdapter;
-    public boolean updat = false;
 
-    public NotaCard(String titol, String contingut, String owner, String date, String notaID) { //DE alguna forma tendremos que darle la data, y cuando
-        //this.noteId = id;                                               //se muestren las notas, que mire la data y sean solo de esa data
+
+    public NotaCard(String titol, String contingut, String owner, String date, String notaID) {
+        //Constructor NotaCard amb titol, contingut, owner, date i l'iD de la nota
         this.titol = titol;
         this.owner = owner;
         this.contingut = contingut;
         this.data = date;
         this.noteId = notaID;
-        //this.position = position;
-        //UUID uuid = UUID.randomUUID();
-        //this.noteId = uuid.toString();
-    }
 
+    }
     public String getOwner() {
         return owner;
+    }
+
+    public String getNoteId() {
+        return noteId;
     }
 
     public String getData() {
@@ -41,20 +36,9 @@ public class NotaCard implements Nota{
 
     public String getContingut() { return contingut; }
 
-    public String getUserName(){return owner;}
-
-    public int getPosition(){ return position;}
-
     public void setNoteId(String notaID){
-        //UUID uuid = UUID.randomUUID();
         this.noteId = notaID;
     }
-
-    public String getNoteId() {
-        return noteId;
-    }
-
-
     public void setContingut(String contingut) {
         this.contingut = contingut;
     }
@@ -62,37 +46,20 @@ public class NotaCard implements Nota{
     public void setTitol(String titol){this.titol = titol;}
 
     public void saveCard() {
+        //Guardarem la nota a nivell de firebase
         Log.d("saveCard", "saveCard-> saveDocument");
-        adapter.saveDocument(this.noteId, this.titol, this.owner,this.contingut, this.data);
+        adapter.saveDocument(this.noteId, this.titol, this.contingut, this.data);
     }
 
-    public void deleteCard(ArrayList<NotaCard> nota){
+    public void deleteCard(){
+        //Eliminarem la nota a nivell de firebase
         Log.d("deleteCard", "deleteCard-> deleteDocument");
-        adapter.deleteDocument(this, nota, this.noteId, data);
-
+        adapter.deleteDocument(this.noteId, data);
     }
 
-    public void updateCard(int pos){
+    public void updateCard(){
+        //Actualitzrame la nota a nivell de firebase
         Log.d("updateCard", "updateCard-> updateDocument");
-        position = pos;
-        adapter.updateDocument(position, this.noteId, this.titol, this.owner, this.contingut, this.data);
-
-    }
-
-    /*public NotaCard getCard() {
-        HashMap<String, String> hm = adapter.getDocuments();
-        Boolean answer = false;
-        if (hm != null) {
-           // NotaCard nc = new NotaCard(hm.get("description"), "", hm.get("owner"), hm.get("data"));
-            //nc.setNoteId(hm.get("noteid"));
-            return nc;
-        } else {
-            return null;
-        }
-    }*/
-
-    @Override
-    public int getType() {
-        return Nota.TYPE_TEXT;
+        adapter.updateDocument(this.noteId, this.titol, this.owner, this.contingut, this.data);
     }
 }

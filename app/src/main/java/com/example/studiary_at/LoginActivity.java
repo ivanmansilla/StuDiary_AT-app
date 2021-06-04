@@ -67,11 +67,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToRegisterActivity() {
+        //Fem un intent a register activity
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
     }
 
     private void goToMainActivity() {
+        //Fem un intent al activity main
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
@@ -86,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
             reload();
         }
     }
-
 
     //Mètode per iniciar sessió
     private void signIn(String email, String password) {

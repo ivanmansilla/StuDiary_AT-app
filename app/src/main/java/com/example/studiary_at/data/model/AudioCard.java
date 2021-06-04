@@ -5,7 +5,7 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class AudioCard implements Nota {
+/*public class AudioCard implements Nota {
     @Override
     public int getType() {
         return Nota.TYPE_AUDIO;
@@ -53,5 +53,5 @@ public class AudioCard implements Nota {
             return null;
         }
     }
-}
+}*/
 

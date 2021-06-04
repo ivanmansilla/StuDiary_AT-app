@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,7 +16,7 @@ import com.example.studiary_at.R;
 
 import java.util.ArrayList;
 
-public class CustomAdapter extends RecyclerView.Adapter{
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder>{
 
     private final ArrayList<NotaCard> localDataSet;
     private final Context parentContext;
@@ -29,15 +27,15 @@ public class CustomAdapter extends RecyclerView.Adapter{
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    public static class ViewHolderOne extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
         private final TextView titleTextView;
         private final LinearLayout notaLayout;
         private final Button editButton, deleteButton;
 
-        public ViewHolderOne(View view) {
+        public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-
             titleTextView = view.findViewById(R.id.row_title2);
             notaLayout = view.findViewById(R.id.row_note_layout2);
             editButton = view.findViewById(R.id.row_button_edit);
@@ -56,7 +54,8 @@ public class CustomAdapter extends RecyclerView.Adapter{
 
         public Button getDeleteButton() {return deleteButton;}
     }
-    public static class ViewHolderTwo extends RecyclerView.ViewHolder{
+
+    /*public static class ViewHolderTwo extends RecyclerView.ViewHolder{
         private final TextView titleAudio;
         private final LinearLayout audioLayout;
         private final Button buttonDelete;
@@ -77,7 +76,7 @@ public class CustomAdapter extends RecyclerView.Adapter{
         public Button getDeleteAudio(){return buttonDelete;}
 
         public ImageButton getPlayButton(){return buttonPlay;}
-    }
+    }*/
 
     /**
      * Initialize the dataset of the Adapter.
@@ -85,13 +84,13 @@ public class CustomAdapter extends RecyclerView.Adapter{
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
+
     public CustomAdapter(Context current, ArrayList<NotaCard> dataSet, openNoteInterface listener) {
         parentContext = current;
         localDataSet = dataSet;
         this.listener = listener;
 
     }
-
 
     @Override
     public int getItemViewType(int position) {
@@ -100,38 +99,26 @@ public class CustomAdapter extends RecyclerView.Adapter{
         }
         return 1;
     }
-    /*
-    // Create new views (invoked by the layout manager)
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.recycler_row, viewGroup, false);
 
-        return new ViewHolder(view);
-    }*/
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         View view;
-        if(viewType == 0){
+        /*if(viewType == 0){
             view = layoutInflater.inflate(R.layout.recycler_audio_row, viewGroup,false);
             return new ViewHolderTwo(view);
-        }
+        }*/
         view = layoutInflater.inflate(R.layout.recycler_row,viewGroup,false);
-        return new ViewHolderOne(view);
+        return new ViewHolder(view);
     }
 
 
 
     private void openNote(int position) {
-        //listener.startPlaying(position);
         listener.editNote(position);
-        // Que se nos abra la nota para poder editarla (o solo verla)
     }
 
     private void removeNote(int position){
@@ -141,13 +128,12 @@ public class CustomAdapter extends RecyclerView.Adapter{
     public interface openNoteInterface {
         void editNote(int nPosition);
         void deleteNote(int nPosition);
-        void startPlaying(int fileName);
+        //void startPlaying(int fileName);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    /*@Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
-
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         int color = ContextCompat.getColor(parentContext, R.color.row);
@@ -167,8 +153,8 @@ public class CustomAdapter extends RecyclerView.Adapter{
                 removeNote(position);
             }
         });
-    }*/
-    @Override
+    }
+    /*@Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
         // Get element from your dataset at this position and replace the
@@ -217,12 +203,12 @@ public class CustomAdapter extends RecyclerView.Adapter{
             });
 
         }
-    }
-    private void playAudio(int position) {
-        // Play audio for clicked note
+    }*/
 
+    /*private void playAudio(int position) {
+        // Play audio for clicked note
         listener.startPlaying(position);
-    }
+    }*/
 
 
     // Return the size of your dataset (invoked by the layout manager)
