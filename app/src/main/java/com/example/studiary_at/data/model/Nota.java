@@ -5,3 +5,4 @@ public interface Nota {
     int TYPE_AUDIO=1;
     int getType();
 }
+//Missatge commit
