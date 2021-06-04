@@ -16,11 +16,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import javax.xml.transform.sax.SAXSource;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    public static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
     private EditText nom_et, email_et, dataNaix_et, contrasenya_et, confContrasenya_et;
     private Button register_button;

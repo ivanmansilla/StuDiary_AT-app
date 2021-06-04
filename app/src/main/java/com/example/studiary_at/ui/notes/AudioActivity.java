@@ -171,8 +171,8 @@ public class AudioActivity extends AppCompatActivity implements CustomAdapter.op
             }
         };
 
-        viewModel.getNotaCards().observe(this, observer);
-        viewModel.getToast().observe(this, observerToast);
+        /*viewModel.getNotaCards().observe(this, observer);
+        viewModel.getToast().observe(this, observerToast);*/
     }
 
 

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.studiary_at.data.model.AudioCard;
 import com.example.studiary_at.data.model.FireBaseAdapter;
-import com.example.studiary_at.data.model.Nota;
 import com.example.studiary_at.data.model.NotaCard;
 
 import java.util.ArrayList;
@@ -66,8 +65,8 @@ public class AudioViewModel extends ViewModel implements FireBaseAdapter.vmInter
     }
 
     @Override
-    public void setCollection(ArrayList<Nota> nc) {
-        mAudioCards.setValue(nc);
+    public void setCollection(ArrayList<NotaCard> nc) {
+        //mAudioCards.setValue(nc);
     }
 
     @Override

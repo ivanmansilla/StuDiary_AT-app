@@ -1,38 +1,22 @@
 package com.example.studiary_at.data.model;
 
 //import com.google.auth.oauth2.GoogleCredentials;
-import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.studiary_at.ui.notes.NotesActivity;
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.squareup.okhttp.internal.Internal.instance;
 
 public class FireBaseAdapter {
     public static final String TAG = "DatabaseAdapter";
@@ -65,12 +49,13 @@ public class FireBaseAdapter {
     }
 
     public interface vmInterface{
-        void setCollection(ArrayList<Nota> nc);
+        void setCollection(ArrayList<NotaCard> nc);
         void setToast(String s);
     }
 
     private void initFirebase() {
         user = mAuth.getCurrentUser();
+
     }
 
     public void getCollection() {
@@ -81,16 +66,10 @@ public class FireBaseAdapter {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<Nota> retrieved_ac = new ArrayList<Nota>() ;
+                            ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Nota nota= new Nota() {
-                                    @Override
-                                    public int getType() {
-                                        return ;
-                                    }
-                                };
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new Nota(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
+                                retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
                                         .getString("data"), document.getString("noteId")) {
                                 });
                                 size++;
@@ -145,16 +124,16 @@ public class FireBaseAdapter {
         //notas = new ArrayList<NotaCard>();
         System.out.println(listener + " jeje2");
         FireBaseAdapter.db.collection(stData)
-                .whereEqualTo("data", stData)
+                .whereEqualTo("data", stData).whereEqualTo("owner", user.getEmail())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<Nota> retrieved_ac = new ArrayList<>();
+                            ArrayList<NotaCard> retrieved_ac = new ArrayList<NotaCard>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new Nota(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
+                                retrieved_ac.add(new NotaCard(document.getString("title"), document.getString("contingut"), document.getString("owner"), document
                                               .getString("data"), document.getString("noteId")));
                             }
                             listener.setCollection(retrieved_ac);
@@ -178,7 +157,7 @@ public class FireBaseAdapter {
         Map<String, Object> note = new HashMap<>();
         note.put("noteId", noteId);
         note.put("title", title);
-        note.put("owner", owner);
+        note.put("owner", user.getEmail());
         note.put("contingut", contingut);
         note.put("data", data);
         System.out.println("SIZE OF SAVE " + size);
@@ -193,7 +172,7 @@ public class FireBaseAdapter {
         System.out.println("SIZE OF SAVE DESPRES DAFEGIR " + size);
     }
 
-    public void deleteDocument (Nota nc, ArrayList<Nota> nota, String noteId, String data) {
+    public void deleteDocument (Nota nc, ArrayList<NotaCard> nota, String noteId, String data) {
         Log.d(TAG, "deleteDocument");
         System.out.println(noteId + "  " + data + "deleeeete");
         db.collection(data).document(noteId).delete();
@@ -242,28 +221,14 @@ public class FireBaseAdapter {
     }
     public void updateDocument(int pos, String noteId, String title, String owner, String contingut, String data) {
         Log.d(TAG, "updateDocument");
-        pos++;
-        position = String.valueOf(pos);
-        System.out.println(position + " Position of update ");
-        //if (temp == 0){
-            System.out.println(position + " Dintre temp ");
-            db.collection(data).document(position).delete();
-            size--;
-          //  temp++;
-        //}
-        //db.collection("notaCards").document(position).delete();
         Map<String, Object> note = new HashMap<>();
         note.put("noteId", noteId);
         note.put("title", title);
         note.put("owner", owner);
         note.put("contingut", contingut);
         note.put("data", data);
-        System.out.println("SIZE " + size);
-        //note.put("position", position2);
-        Log.d(TAG, "saveDocument");
-        System.out.println(position + " Position save/update document");
-        db.collection(data).document(position).set(note);
-        size++;
+
+        db.collection(data).document(noteId).update(note);
     }
 
 
