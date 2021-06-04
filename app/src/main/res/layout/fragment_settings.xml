@@ -43,31 +43,15 @@
         app:layout_constraintVertical_bias="0.121"
         app:srcCompat="@android:drawable/ic_menu_manage" />
 
-    <CheckBox
-        android:id="@+id/checkBox_Notifications_set"
-        android:layout_width="256dp"
-        android:layout_height="65dp"
-        android:text="@string/notificaciones"
-        android:textColor="#FFFFFF"
-        android:textSize="31sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.567"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.469" />
-
     <Switch
         android:id="@+id/switchTema"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Modo oscuro"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/logo_reg2"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintTop_toTopOf="@+id/logo_reg2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

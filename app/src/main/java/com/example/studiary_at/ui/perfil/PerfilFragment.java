@@ -48,8 +48,6 @@ public class PerfilFragment extends Fragment{
 
 
         mail = (TextView) root.findViewById(R.id.mailperfil);
-        nom = (TextView) root.findViewById(R.id.nomPerfil);
-        number = (TextView) root.findViewById(R.id.numberPerfil);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -60,8 +58,6 @@ public class PerfilFragment extends Fragment{
         numberUser = user.getPhoneNumber();
 
         mail.setText(emailuser, TextView.BufferType.EDITABLE);
-        nom.setText(nomUser,TextView.BufferType.EDITABLE);
-        number.setText(numberUser,TextView.BufferType.EDITABLE);
 
         signOut_button = (Button) root.findViewById(R.id.sign_out_button);
         signOut_button.setOnClickListener(new View.OnClickListener()
